@@ -6,7 +6,9 @@ export default function Navbar() {
             {/* Left nav menu */}
             <div className={`${Style['flex']} ${Style.leftMenu}`}>
                 {/* Humbergur icon */}
-                <Image src='/hamburger.png' className={Style.icon} width={50} height={50} alt="" priority />
+                <div className={`${Style.inIcon}`}>
+                <Image src='/assets/images/hamburger.png' className={Style.icon} width={50} height={50} alt="" priority />
+                </div>
                 <p>Navbar</p>
 
             </div>
@@ -15,18 +17,20 @@ export default function Navbar() {
                 <div className={`${Style.flex} ${Style.searchContainer}`}>
                     {/* Search field */}
                     <input className={`${Style.searchField}`} type="text" placeholder="Search" />
-                    <Image src="/search.png" className={`${Style.icon} ${Style.searchBarIcon}`} width={50} height={50} alt="" priority />
+                    <Image src="/assets/images/search.png" className={`${Style.icon} ${Style.searchBarIcon}`} width={50} height={50} alt="" priority />
                 </div>
-                <Image src='/microphone.png' className={`${Style.icon} ${Style.searchBarIcon} ${Style.micIcon}`} width={50} height={50} alt="" priority />
+                <div className={`${Style.inIcon} ${Style.micIcon}`}>
+                <Image src='/assets/images/microphone.png' className={`${Style.icon} ${Style.searchBarIcon} `} width={50} height={50} alt="" priority />
+                </div>
             </div>
             {/* Right nav menu */}
             <div className={`${Style.rightContainer} ${Style.flex}`}>
                 {/* Login Button */}
            
-                    <Image src='/setting.png' className={Style.settingIcon} width={50} height={50} priority alt="" />
+                    <Image src='/assets/images/setting.png' className={Style.settingIcon} width={50} height={50} priority alt="" />
                     {/* Login Button */}
                     <div className={`${Style.flex} ${Style.loginBtn}`}>
-                        <Image src='/user.png' className={Style.icon} width={30} height={30} alt="" priority />
+                        <Image src='/assets/images/user.png' className={Style.icon} width={30} height={30} alt="" priority />
                         <p className={Style.text}>Log in</p>
                     </div>
            

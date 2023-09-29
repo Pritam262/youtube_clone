@@ -1,0 +1,48 @@
+.container{
+    width: 15%;
+    height: 94vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* background-color: brown; */
+    border-right: 1px solid red;
+}
+.divider{
+    width: 90%;
+    height: 1px;
+    background-color: rgb(202, 202, 202);
+    margin: 10px 0;
+}
+.srgfr45{
+    width: 70%;
+}
+.signInBtn{
+    width: 50%;
+    margin: 10px 0;
+    padding: 10px;
+    background-color: rgba(137, 43, 226, 0.849);
+    border-radius: 25px;
+    border: none;
+}
+
+.navMenu{
+    width: 80%;
+    /* width: auto; */
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+    /* background-color: blueviolet; */
+    padding: 5px 8px;
+    border-radius: 10px;
+}
+.navMenu:hover{
+    background-color: rgba(87, 86, 86, 0.726);
+    transition: 0.3s;
+}
+.icon{
+    width: 25px;
+    height: 25px;
+}
+.navList{
+    padding-left: 15px;
+}
