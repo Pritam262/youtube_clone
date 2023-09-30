@@ -1,0 +1,62 @@
+.flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.main {
+    width: 90%;
+    background-color: brown;
+    margin: auto;
+}
+
+.leftContainer {
+    width: 80%;
+    border: 2px solid #fff;
+    margin-right: 30px;
+}
+
+.videoContainer {
+    width: 100%;
+    height: 650px;
+    background-color: azure;
+    border-radius: 25px;
+}
+
+.afq24 {
+    width: 25%;
+    /* background-color: blueviolet; */
+    margin: 10px 0;
+}
+
+.inputComment {
+    width: 100%;
+    margin: 15px 0;
+    display: flex;
+    align-items: center;
+    /* background-color: bisque; */
+}
+
+.userImage {
+    border-radius: 50%;
+    border: 1px solid red;
+}
+
+.debs24 {
+    width: 100%;
+}
+
+.commentField {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    background-color: transparent;
+    border-bottom: 1px solid rgb(110, 110, 110);
+    /* background-color: #000; */
+}
+
+.rightContainer {
+    width: 20%;
+    /* background-color: blueviolet; */
+    border: 2px solid yellow;
+}

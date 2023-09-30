@@ -9,8 +9,8 @@
 }
 .divider{
     width: 90%;
-    height: 1px;
-    background-color: rgb(202, 202, 202);
+    height: 2px;
+    background-color: rgba(151, 151, 151, 0.767);
     margin: 10px 0;
 }
 .srgfr45{

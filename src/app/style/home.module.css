@@ -1,15 +1,15 @@
 .mainContainer{
     width: 100%;
-    /* display: flex;
-    flex-wrap: wrap; */
-    /* background-color: aqua; */
+    display: flex;
+    background-color: aqua;
 }
 .cardContainer{
+    height: fit-content;
     display: grid;
     grid-template-columns: repeat(5,1fr);
     /* display: flex;
     flex-wrap: wrap; */
-    /* background-color: blueviolet; */
+    background-color: blueviolet;
 
 }
 .card{
