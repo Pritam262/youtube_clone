@@ -3,7 +3,7 @@ import Image from 'next/image'
 export default function homeleftNavbar(){
     return (
         <div className={Style.container}>
-            <span className={Style.navMenu}><Image className={Style.icon} src='/assets/images/home.png' width={50} height={50} alt=''  priority /> <p className={Style.navList}>Home</p> </span>
+            <span className={Style.navMenu}><Image className={Style.icon} src='/assets/images/homeIcon.png' width={50} height={50} alt=''  priority /> <p className={Style.navList}>Home</p> </span>
             <span className={Style.navMenu}><Image className={Style.icon} src='/assets/images/short-filmIcon.png' width={50} height={50} alt=''  priority /> <p className={Style.navList}>Shorts</p> </span>
             <span className={Style.navMenu}><Image className={Style.icon} src='/assets/images/subscribeIcon.png' width={50} height={50} alt=''  priority /> <p className={Style.navList}>Subscriptions</p> </span>
             <span className={Style.divider}></span>

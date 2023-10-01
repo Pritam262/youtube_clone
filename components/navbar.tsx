@@ -9,7 +9,7 @@ export default function Navbar() {
                 <div className={`${Style.inIcon}`}>
                 <Image src='/assets/images/hamburger.png' className={Style.icon} width={50} height={50} alt="" priority />
                 </div>
-                <p>Navbar</p>
+                <p className={Style.text}>Navbar</p>
 
             </div>
             {/* Center nav menu */}
@@ -26,7 +26,6 @@ export default function Navbar() {
             {/* Right nav menu */}
             <div className={`${Style.rightContainer} ${Style.flex}`}>
                 {/* Login Button */}
-           
                     <Image src='/assets/images/setting.png' className={Style.settingIcon} width={50} height={50} priority alt="" />
                     {/* Login Button */}
                     <div className={`${Style.flex} ${Style.loginBtn}`}>

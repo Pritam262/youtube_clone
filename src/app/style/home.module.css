@@ -1,52 +1,70 @@
-.mainContainer{
+.mainContainer {
     width: 100%;
     display: flex;
-    background-color: aqua;
+    margin-top: 8vh;
+    /* background-color: aqua; */
 }
-.cardContainer{
+
+.cardContainer {
+    width: 100%;
     height: fit-content;
     display: grid;
-    grid-template-columns: repeat(5,1fr);
+    grid-template-columns: repeat(5, 1fr);
+
+    /* margin-left: 15%; */
+
     /* display: flex;
     flex-wrap: wrap; */
-    background-color: blueviolet;
+    /* background-color: blueviolet; */
 
 }
-.card{
+.slgd12{
+    margin: auto;
+}
 
-    width: 310px;
-    height: 300px;
+.card {
+    width: 350px;
+    /* height: 290px; */
+    height: max-content;
     margin: 10px;
+    padding-bottom: 10px;
     /* background-color: brown; */
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
+    /* background-color: blue; */
 }
 
-.coverImage{
+.coverImage {
+    width: 100%;
+    /* height: 200px; */
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
 }
-.videoDetails{
+
+.videoDetails {
     padding-top: 10px;
     /* background-color: rgb(226, 43, 186); */
 }
-.flex{
+
+.flex {
     display: flex;
     align-items: center;
 }
 
-.details{
+.details {
     padding: 0 10px;
 }
-.channel{
+
+.channel {
     border-radius: 50%;
-    
+
 }
-.views{
+
+.views {
     padding-right: 10px;
 }
 
-.time::before{
+.time::before {
     content: '';
     width: 5px;
     height: 5px;
@@ -55,3 +73,81 @@
     display: inline-flex;
     background-color: #fff;
 }
+@media screen and (max-width:1000px) {
+    .cardContainer {
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        /* background-color: blue; */
+    }
+
+    .slgd12{
+        margin: 10px 0;
+    }
+    .card {
+        width: 90%;
+        height: 280px;
+        margin: auto;
+        /* background-color: blue; */
+    }
+
+}
+
+@media screen and (max-width:900px) {
+    .cardContainer {
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        /* background-color: blueviolet; */
+    }
+    .slgd12{
+        margin: 10px 0;
+    }
+    .card {
+        width: 90%;
+        height: 280px;
+        margin: auto;
+        /* background-color: blue; */
+    }
+    
+
+}
+
+@media screen and (max-width:500px) {
+    .cardContainer {
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        /* background-color: blanchedalmond; */
+    }
+    .slgd12{
+        margin-top: 15px;
+    }
+    .card{
+        width: 90%;
+        margin: auto;
+        /* background-color: blue; */
+    }
+
+}
+
+
+@media screen and (max-width:400px) {
+    .cardContainer {
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        /* background-color: blanchedalmond; */
+    }
+    .slgd12{
+        margin-top: 15px;
+    }
+    .card{
+        width: 90%;
+        margin: auto;
+        /* background-color: blue; */
+    }
+
+}
+
+

@@ -1,18 +1,29 @@
+
 .flex {
     display: flex;
     justify-content: space-between;
+    /* align-items: center; */
+}
+.at_c{
     align-items: center;
+}
+
+.container{
+    margin-top: 8vh;
 }
 
 .main {
     width: 90%;
-    background-color: brown;
+    /* background-color: brown; */
     margin: auto;
+
+    display: flex;
+    justify-content: space-between;
 }
 
 .leftContainer {
-    width: 80%;
-    border: 2px solid #fff;
+    width: 70%;
+    /* border: 2px solid #fff; */
     margin-right: 30px;
 }
 
@@ -36,15 +47,19 @@
     align-items: center;
     /* background-color: bisque; */
 }
+.mx{
+    margin: 0 5px;
+}
 
 .userImage {
     border-radius: 50%;
-    border: 1px solid red;
+    /* border: 1px solid red; */
 }
 
 .debs24 {
     width: 100%;
 }
+
 
 .commentField {
     width: 100%;
@@ -55,8 +70,74 @@
     /* background-color: #000; */
 }
 
+.comment {
+    width: 100%;
+    display: flex;
+    margin: 15px 0;
+}
+
+.fget6 {
+    width: 100%;
+    margin-left: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.dyt245 {
+    /* width: 20%; */
+    display: flex;
+}
+
+.skew41 {
+    padding: 5px 10;
+    font-size: 15px;
+}
+.pinComment{
+    font-size: 14px;
+    /* color: rgb(110, 110, 110); */
+    color: rgb(131, 131, 131);
+    margin-bottom: 5px;
+}
+
+.fdes45 {
+    padding: 2px 10px;
+    background-color: rgba(87, 86, 86, 0.726);
+    border-radius: 50px;
+}
+
+.commentTime {
+    margin-left: 15px;
+    color: rgb(110, 110, 110);
+}
+
 .rightContainer {
-    width: 20%;
-    /* background-color: blueviolet; */
+    width: 30%;
+    height: 100%;
+    background-color: blueviolet;
     border: 2px solid yellow;
 }
+
+
+@media screen and (min-width:300px) {
+    .main{
+        display: flex;
+        flex-direction: column;
+        background-color: brown;
+    }
+    .leftContainer{
+        width: 100%;
+    }
+    .rightContainer{
+        width: 100%;
+    }
+}
+
+
+/* @media screen and (min-width: 300px) {
+    .main {
+        display: flex;
+        flex-direction: column;
+      background-color: lightgreen;
+      margin: auto;
+    }
+  } */

@@ -4,6 +4,8 @@
     /* background-color: rgb(0, 60, 255); */
     /* background-color: blueviolet; */
     padding: 0 20px;
+    position: fixed;
+    background-color: #000;
 }
 
 .flex {
@@ -87,3 +89,98 @@
 .text {
     font-size: 20px;
 }
+
+
+
+@media screen and (max-width: 900px) {
+    .leftMenu {
+        width:10%;
+    }
+    .inIcon{
+        width: 20px;
+        height: 20px;
+        /* background-color: rgb(110, 110, 110); */
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .icon {
+        width: 15px;
+        height: 15px;
+        
+    }
+
+    .centerContainer {
+        width: 60%;
+        /* background-color: rgb(181, 175, 187); */
+    }
+    .searchContainer {
+        width: 95%;
+        background-color: rgb(110, 110, 110);
+        border: 1px solid rgb(110, 110, 110);
+    
+        border-radius: 50px;
+    }
+    .rightContainer {
+        width: 25%;
+        /* background-color: blueviolet; */
+        /* background-color: rgb(63, 96, 97, 0.4); */
+    }
+    .text{
+        font-size: 15px;
+    }
+    
+  }
+
+
+  @media screen and (max-width: 500px) {
+    .leftMenu {
+        width:10%;
+    }
+    .inIcon{
+        width: 20px;
+        height: 20px;
+        /* background-color: rgb(110, 110, 110); */
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .icon {
+        width: 15px;
+        height: 15px;
+        
+    }
+
+    .centerContainer {
+        width: 60%;
+        /* background-color: rgb(181, 175, 187); */
+    }
+    .searchContainer {
+        width: 95%;
+        background-color: rgb(110, 110, 110);
+        border: 1px solid rgb(110, 110, 110);
+    
+        border-radius: 50px;
+    }
+    .searchField{
+        padding: 5px;
+    }
+    .settingIcon{
+        width: 20px;
+        height: 20px;
+    }
+    .micIcon{
+        margin-left: 5px;
+     }
+    .rightContainer {
+        width: 30%;
+        /* background-color: blueviolet; */
+        /* background-color: rgb(63, 96, 97, 0.4); */
+    }
+    .text{
+        font-size: 10px;
+    }
+    
+  }

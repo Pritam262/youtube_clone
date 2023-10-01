@@ -6,6 +6,7 @@
     align-items: center;
     /* background-color: brown; */
     border-right: 1px solid red;
+    /* position: fixed; */
 }
 .divider{
     width: 90%;
