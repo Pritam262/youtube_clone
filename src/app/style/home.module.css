@@ -8,8 +8,11 @@
 .cardContainer {
     width: 100%;
     height: fit-content;
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    /* display: grid;
+    grid-template-columns: repeat(5, 1fr); */
+    display: flex;
+    flex-wrap: wrap;
+    /* overflow: hidden; */
 
     /* margin-left: 15%; */
 
@@ -59,9 +62,16 @@
     border-radius: 50%;
 
 }
+.content{
+    color: rgb(151, 151, 151);
+}
 
 .views {
     padding-right: 10px;
+}
+.time{
+    display: flex;
+    align-items: center;
 }
 
 .time::before {
@@ -71,7 +81,7 @@
     border-radius: 50%;
     margin-right: 5px;
     display: inline-flex;
-    background-color: #fff;
+    background-color: rgb(151, 151, 151);
 }
 @media screen and (max-width:1000px) {
     .cardContainer {

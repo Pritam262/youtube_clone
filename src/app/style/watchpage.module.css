@@ -118,11 +118,12 @@
 }
 
 
-@media screen and (min-width:300px) {
+@media screen and (max-width:1000px) {
     .main{
+        width: 100%;
         display: flex;
         flex-direction: column;
-        background-color: brown;
+        /* background-color: brown; */
     }
     .leftContainer{
         width: 100%;
@@ -133,11 +134,22 @@
 }
 
 
-/* @media screen and (min-width: 300px) {
-    .main {
+@media screen and (max-width:600px) {
+    .main{
         display: flex;
         flex-direction: column;
-      background-color: lightgreen;
-      margin: auto;
+        /* background-color: brown; */
     }
-  } */
+    .leftContainer{
+        width: 100%;
+    }
+    .videoContainer {
+        width: 100%;
+        height: 250px;
+        background-color: azure;
+        border-radius: 25px;
+    }
+    .rightContainer{
+        width: 100%;
+    }
+}

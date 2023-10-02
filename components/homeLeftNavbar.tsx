@@ -1,6 +1,7 @@
 import Style from '@/app/style/leftnav.module.css'
 import Image from 'next/image'
 export default function homeleftNavbar(){
+
     return (
         <div className={Style.container}>
             <span className={Style.navMenu}><Image className={Style.icon} src='/assets/images/homeIcon.png' width={50} height={50} alt=''  priority /> <p className={Style.navList}>Home</p> </span>
