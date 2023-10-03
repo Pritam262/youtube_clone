@@ -1,14 +1,16 @@
+'use client'
 import Style from '@/app/style/home.module.css'
 import Image from 'next/image'
 import HomeleftNavbar from './homeLeftNavbar'
 import Link from 'next/link'
+import { useAppContext } from "@/app/context/appContext";
 export default function home() {
-
+    const { isLeftNavHidden} = useAppContext();
     return (
         <div className={Style.mainContainer}>
-            {/* <HomeleftNavbar /> */}
+            <HomeleftNavbar />
 
-            <div className={Style.cardContainer}>
+            <div className={`${isLeftNavHidden?Style.m_5:Style.cardContainer}`}>
 
                 {/* Card */}
                 <div className={Style.slgd12}>

@@ -1,25 +1,34 @@
 'use client'
 import Image from "next/image"
 import Style from '@/app/style/navbar.module.css'
-import { useState } from "react"
+import { useContext, useState } from "react"
+import { useSelector } from "react-redux";
+// import { addHidden, addShow } from "@/redus/store/leftSide";
+// import {isLeftNavHidden} from '@/app/context/appState'
+import { useAppContext } from "@/app/context/appContext";
 export default function Navbar() {
-    const [isLeftNavbarHidden, setIsLeftNavbarHidden] = useState(false);
-    const setLeftNavbar = () => {
-        if (isLeftNavbarHidden) {
-             console.log("Left navbar show");
-             setIsLeftNavbarHidden(false); 
-            }
-              else {
-                setIsLeftNavbarHidden(true);
-                 console.log('Left navbar hidden') }
-    }
+    const { isLeftNavHidden, toggleLeftNav } = useAppContext();
+    // const [isLeftNavbarHidden, setIsLeftNavbarHidden] = useState();
+    // const leftNavBar = useSelector((state:any)=>state.leftNavBar)
+    // console.log(`Side left style: ${leftNavBar}`);
+
+    // const [isLeftNavbarHidden, setIsLeftNavbarHidden] = useState(false);
+    // const setLeftNavbar = () => {
+    //     if (isLeftNavbarHidden) {
+    //          console.log("Left navbar show");
+    //          setIsLeftNavbarHidden(false); 
+    //         }
+    //           else {
+    //             setIsLeftNavbarHidden(true);
+    //              console.log('Left navbar hidden') }
+    // }
     return (
         <div className={`${Style.navbar} ${Style.flex}`}>
             {/* Left nav menu */}
             <div className={`${Style['flex']} ${Style.leftMenu}`}>
                 {/* Humbergur icon */}
                 <div className={`${Style.inIcon}`}>
-                    <Image src='/assets/images/hamburger.png' className={Style.icon} width={50} height={50} alt="" priority onClick={setLeftNavbar} />
+                    <Image src='/assets/images/hamburger.png' className={Style.icon} width={50} height={50} alt="" priority  onClick={toggleLeftNav}/>
                 </div>
                 <p className={Style.text}>Navbar</p>
 

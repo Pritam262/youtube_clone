@@ -1,9 +1,12 @@
 import Style from '@/app/style/leftnav.module.css'
 import Image from 'next/image'
+import { useAppContext } from "@/app/context/appContext";
+
 export default function leftNavbar(){
+    const { isLeftNavHidden} = useAppContext();
     return (
         <div className={Style.container}>
-            <span className={Style.navMenu}><Image className={Style.icon} src='/assets/images/home.png' width={50} height={50} alt=''  priority /> <p className={Style.navList}>Home</p> </span>
+            <span className={Style.navMenu}><Image className={Style.icon} src='/assets/images/home.png' width={50} height={50} alt=''  priority /> <p className={`${isLeftNavHidden?Style.none:Style.navList}`}>Home</p> </span>
             <span className={Style.navMenu}><Image className={Style.icon} src='/assets/images/short-filmIcon.png' width={50} height={50} alt=''  priority /> <p className={Style.navList}>Shorts</p> </span>
             <span className={Style.navMenu}><Image className={Style.icon} src='/assets/images/subscribeIcon.png' width={50} height={50} alt=''  priority /> <p className={Style.navList}>Subscriptions</p> </span>
             <span className={Style.divider}></span>

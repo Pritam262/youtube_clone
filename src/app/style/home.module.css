@@ -2,31 +2,29 @@
     width: 100%;
     display: flex;
     margin-top: 8vh;
-    /* background-color: aqua; */
 }
 
 .cardContainer {
     width: 100%;
     height: fit-content;
-    /* display: grid;
-    grid-template-columns: repeat(5, 1fr); */
     display: flex;
     flex-wrap: wrap;
-    /* overflow: hidden; */
+    margin-left: 15%;
 
-    /* margin-left: 15%; */
-
-    /* display: flex;
-    flex-wrap: wrap; */
-    /* background-color: blueviolet; */
-
+}
+.m_5{
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: 5%;
 }
 .slgd12{
     margin: auto;
 }
 
 .card {
-    width: 350px;
+    width: 300px;
     /* height: 290px; */
     height: max-content;
     margin: 10px;
