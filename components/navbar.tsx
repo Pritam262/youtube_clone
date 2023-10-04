@@ -7,21 +7,7 @@ import { useSelector } from "react-redux";
 // import {isLeftNavHidden} from '@/app/context/appState'
 import { useAppContext } from "@/app/context/appContext";
 export default function Navbar() {
-    const { isLeftNavHidden, toggleLeftNav } = useAppContext();
-    // const [isLeftNavbarHidden, setIsLeftNavbarHidden] = useState();
-    // const leftNavBar = useSelector((state:any)=>state.leftNavBar)
-    // console.log(`Side left style: ${leftNavBar}`);
-
-    // const [isLeftNavbarHidden, setIsLeftNavbarHidden] = useState(false);
-    // const setLeftNavbar = () => {
-    //     if (isLeftNavbarHidden) {
-    //          console.log("Left navbar show");
-    //          setIsLeftNavbarHidden(false); 
-    //         }
-    //           else {
-    //             setIsLeftNavbarHidden(true);
-    //              console.log('Left navbar hidden') }
-    // }
+    const {toggleLeftNav } = useAppContext();
     return (
         <div className={`${Style.navbar} ${Style.flex}`}>
             {/* Left nav menu */}
