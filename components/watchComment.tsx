@@ -5,7 +5,7 @@ return(
     <>
    
           {/* Comment Container */}
-          <div>
+          <div className={Style.jtder45}>
             {/* No. of comment & shorted container start*/}
             <span className={`${Style.flex} ${Style.afq24} ${Style.at_c}`}>
               <span className={`${Style.flex} ${Style.at_c}`}>
