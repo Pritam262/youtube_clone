@@ -22,10 +22,10 @@ export default function WatchComponent(){
                 </div>
                 <button className={Style.subButton}>Subcribe</button>
               </div>  {/* Channel details div end*/}
-              <div className={`${Style.flex} ${Style.at_c}`}>  {/* Button start*/}
+              <div className={`${Style.flex} ${Style.at_c} `}>  {/* Button start*/}
 
                 {/* Like and dislike button */}
-                <div className={`${Style.flex} ${Style.at_c} ${Style.mr_10}`}>
+                <div className={`${Style.flex} ${Style.at_c} ${Style.mr_10} `}>
                   {/* Like Button */}
                   <div className={`${Style.flex} ${Style.at_c} ${Style.mr_10}`}>
                     <Image className={Style.mr_10} src="/assets/images/likeIcon.png" width={20} height={20} alt="" priority />
@@ -39,7 +39,7 @@ export default function WatchComponent(){
                 </div> {/* Like and Dislike button end*/}
 
 
-                <div className={`${Style.flex} ${Style.at_c} ${Style.mr_10}`}> {/*Share button */}
+                <div className={`${Style.flex} ${Style.at_c} ${Style.mr_10} `}> {/*Share button */}
                   <Image className={Style.mr_10} src="/assets/images/sendIcon.png" width={20} height={20} alt="" priority />
                   Share
                 </div>

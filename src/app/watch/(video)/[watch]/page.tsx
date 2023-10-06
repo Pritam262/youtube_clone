@@ -5,17 +5,23 @@ import Watchcomment from "../../../../../components/watchComment";
 import VideoSuggest from "../../../../../components/watchVideoSuggest"
 import { Bai_Jamjuree } from "next/font/google";
 import WatchComponent from "../../../../../components/watchComponents";
+import BigLeftNavBar from "../../../../../components/bigNavLeftbar";
+import { useAppContext } from "@/app/context/appContext";
 export default function page({ params }: { params: { watch: string } }) {
-
-
+  const { isLeftNavHidden} = useAppContext();
   return (
-    <div className={Style.container}>
+    <>
+   
+      <BigLeftNavBar/>
+    <div className={Style.container}>     
       <div className={`${Style.main}`}>
         <WatchComponent/>
         <VideoSuggest params={params} />
         <Watchcomment />
       </div>
+      <div className={`${isLeftNavHidden? '':Style.hredq1}`}></div>
     </div>
+    </>
   );
 }
 
