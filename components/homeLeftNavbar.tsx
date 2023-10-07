@@ -4,11 +4,11 @@ import Image from 'next/image'
 import Link from 'next/link';
 import { useAppContext } from "@/app/context/appContext";
 export default function homeleftNavbar(){
-    const { isLeftNavHidden} = useAppContext();
+    const { isLeftNavHidden, toggleLeftNav} = useAppContext();
     return (
         <div className={`${isLeftNavHidden?Style.w_5:Style.container}`}>
            <Link className={`${isLeftNavHidden?Style.onHide:Style.navMenu}`} href='/'><Image className={Style.icon} src='/assets/images/homeIcon.png' width={50} height={50} alt=''  priority /> <p className={`${isLeftNavHidden?Style.textSmall:Style.navList}`}>Home</p> </Link>
-            <Link href='/shorts/hhweu24' className={`${isLeftNavHidden?Style.onHide:Style.navMenu}`}><Image className={Style.icon} src='/assets/images/short-filmIcon.png' width={50} height={50} alt=''  priority /> <p className={`${isLeftNavHidden?Style.textSmall:Style.navList}`}>Shorts</p> </Link>
+            <Link href='/shorts/hhweu24' onClick={toggleLeftNav} className={`${isLeftNavHidden?Style.onHide:Style.navMenu}`}><Image className={Style.icon} src='/assets/images/short-filmIcon.png' width={50} height={50} alt=''  priority /> <p className={`${isLeftNavHidden?Style.textSmall:Style.navList}`}>Shorts</p> </Link>
             <Link href='/subscription' className={`${isLeftNavHidden?Style.onHide:Style.navMenu}`}><Image className={Style.icon} src='/assets/images/subscribeIcon.png' width={50} height={50} alt=''  priority /> <p className={`${isLeftNavHidden?Style.textSmall:Style.navList}`}>Subscriptions</p> </Link>
             <span className={`${isLeftNavHidden?Style.none:Style.divider}`}></span>
             {/* <hr className={Style.divider}/> */}

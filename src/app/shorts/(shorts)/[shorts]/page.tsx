@@ -8,7 +8,7 @@ import WatchComponent from "../../../../../components/watchComponents";
 import BigLeftNavBar from "../../../../../components/bigNavLeftbar";
 import { useAppContext } from "@/app/context/appContext";
 import ShortVideo from "../../../../../components/shortVideo";
-export default function page({ params }: { params: { video: string } }) {
+export default function page({ params }: { params: { shorts: string } }) {
   const { isLeftNavHidden} = useAppContext();
   return (
     <div className={Style.container}>

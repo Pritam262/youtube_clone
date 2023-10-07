@@ -4,7 +4,7 @@ import { useAppContext } from "@/app/context/appContext";
 import Link from 'next/link';
 
 export default function leftNavbar(){
-    const { isLeftNavHidden} = useAppContext();
+    const { isLeftNavHidden, toggleLeftNav} = useAppContext();
     const options = {
         item1:{
             name:'home',
@@ -78,8 +78,8 @@ export default function leftNavbar(){
       
             <Link href=''>
             <span className={Style.navMenu}><Image className={Style.icon} src='/assets/images/home.png' width={50} height={50} alt=''  priority /> <p className={`${isLeftNavHidden?Style.none:Style.navList}`}>Home</p> </span> </Link>
-            <Link href='/short'>
-            <span className={Style.navMenu}><Image className={Style.icon} src='/assets/images/short-filmIcon.png' width={50} height={50} alt=''  priority /> <p className={Style.navList}>Shorts</p> </span> </Link>
+            <Link href='/short' onClick={toggleLeftNav}>
+            <span  className={Style.navMenu}><Image className={Style.icon} src='/assets/images/short-filmIcon.png' width={50} height={50} alt=''  priority /> <p className={Style.navList}>Shorts</p> </span> </Link>
             <Link href='/subcription'>
             <span className={Style.navMenu}><Image className={Style.icon} src='/assets/images/subscribeIcon.png' width={50} height={50} alt=''  priority /> <p className={Style.navList}>Subscriptions</p> </span> </Link>
             <span className={Style.divider}></span>

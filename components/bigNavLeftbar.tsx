@@ -9,7 +9,7 @@ export default function BigLeftNavBar() {
             <div className={`${Style.logo}`} onClick={toggleLeftNav}><Image className={Style.icon} src='/assets/images/hamburger.png' width={50} height={50} alt='' priority /> <p className={`${Style.text}`}>Navbar</p> </div>
             <div className={Style.navList}>
             <Link className={`${Style.navMenu}`} href='/'><Image className={Style.icon} src='/assets/images/homeIcon.png' width={50} height={50} alt='' priority /> <p className={`${Style.navList}`}>Home</p> </Link>
-            <Link href='/shorts' className={`${Style.navMenu}`}><Image className={Style.icon} src='/assets/images/short-filmIcon.png' width={50} height={50} alt='' priority /> <p className={`${Style.navList}`}>Shorts</p> </Link>
+            <Link href='/shorts/orghybv2748' onClick={toggleLeftNav} className={`${Style.navMenu}`}><Image className={Style.icon} src='/assets/images/short-filmIcon.png' width={50} height={50} alt='' priority /> <p className={`${Style.navList}`}>Shorts</p> </Link>
             <Link href='/subscription' className={`${Style.navMenu}`}><Image className={Style.icon} src='/assets/images/subscribeIcon.png' width={50} height={50} alt='' priority /> <p className={`${Style.navList}`}>Subscriptions</p> </Link>
             <span className={`${Style.divider}`}></span>
             {/* <hr className={Style.divider}/> */}
