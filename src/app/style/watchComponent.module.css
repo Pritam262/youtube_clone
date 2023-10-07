@@ -7,45 +7,10 @@
 .at_c{
     align-items: center;
 }
-.dfgrt21{
-    background-color: blue;
-}
+
 .fd_c{
     flex-direction: column;
 }
-.container{
-    width: 100vw;
-    margin-top: 8vh;
-    /* position: absolute; */
-    /* position: fixed; */
-}
-.hideContainer{
-    width: 100vw;
-    margin-top: 8vh;
-    /* position: absolute; */
-    position: fixed;
-
-}
-
-.hredq1{
-    width: 100vw;
-    height: 92vh;
-    position: absolute;
-    top: 0;
-    left: 0;
-    background-color: rgba(34, 34, 34, 0.692);
-}
-.main {
-    width: 90%;
-    /* background-color: brown; */
-    margin: auto;
-    display: grid;
-    grid-column-gap: 20px;
-    /* grid-template-columns: 2fr 1fr; */
-    grid-template-areas: 'main main main main right right'
-    'footer footer footer footer right right';
-}
-
 
 .videoContainer {
     width: 100%;
@@ -55,23 +20,6 @@
     border-radius: 25px;
 }
 
-.afq24 {
-    width: 25%;
-    /* background-color: blueviolet; */
-    margin: 10px 0;
-}
-
-.inputComment {
-    width: 100%;
-    margin: 15px 0;
-    display: flex;
-    align-items: center;
-    /* background-color: bisque; */
-}
-.mx{
-    margin: 0 5px;
-}
-
 .userImage {
     border-radius: 50%;
     /* border: 1px solid red; */
@@ -79,22 +27,7 @@
 
 .debs24 {
     width: 100%;
-}
-
-
-.commentField {
-    width: 100%;
-    padding: 10px;
-    border: none;
-    background-color: transparent;
-    border-bottom: 1px solid rgb(110, 110, 110);
-    /* background-color: #000; */
-}
-
-.comment {
-    width: 100%;
-    display: flex;
-    margin: 15px 0;
+    /* background-color: blueviolet; */
 }
 
 .fget6 {
@@ -109,51 +42,20 @@
     display: flex;
     align-items: center;
 }
-
-.skew41 {
-    padding: 5px 10;
-    font-size: 15px;
-}
-.pinComment{
-    font-size: 14px;
-    /* color: rgb(110, 110, 110); */
-    color: rgb(131, 131, 131);
-    margin-bottom: 5px;
-}
-
-.fdes45 {
-    padding: 2px 10px;
-    background-color: rgba(87, 86, 86, 0.726);
-    border-radius: 50px;
-}
-
-.commentTime {
-    margin-left: 15px;
-    color: rgb(110, 110, 110);
-}
-
-.rightContainer {
-    /* If main is flex */
-    /* width: 30%; */
-    width: 100%;
-    /* height: 100vh; */
-    height: auto;
-    background-color: blueviolet;
-    /* border: 2px solid yellow; */
-    grid-area: right;
-}
 .video_details{
     padding: 10px 0;
-    /* background-color: blueviolet; */
 }
 .channelDetails{
-    /* width: 18%; */
     margin: 10px 0;
     display: flex;
-    /* background-color: blueviolet; */
+
+}
+.awer21{
+    display: flex;
+    justify-content: space-between;
 }
 .mr_10{
-    margin-right: 5px;
+    margin-right: 10px;
 }
 .subButton{
     /* background-color: brown; */
@@ -167,24 +69,17 @@
     width: 100%;
     height: fit-content;
     grid-area: main;
-}
-.jtder45{
     /* background-color: blue; */
-    grid-area: footer;
+}
+.optionBtn{
+    /* background-color: blue; */
+}
+.btn{
+    padding: 10px 10px;
+    border-radius: 50px;
+    background-color: rgba(87, 86, 86, 0.726);
 }
 @media screen  and (max-width:1280px) {
-    .main {
-        width: 95%;
-        /* background-color: brown; */
-        margin: auto;
-
-        display: grid;
-        grid-column-gap: 20px;
-        /* grid-template-columns: 2fr 1fr; */
-        grid-template-areas: 'main main main right right right'
-        'footer footer footer right right right';
-        /* grid-template-areas: 'leftContainer leftcontainer leftContainer leftContainer leftContainer rightContainer'; */
-    }
     .videoContainer {
         width: 100%;
         height: 450px;
@@ -197,13 +92,12 @@
     }
 }
 @media screen  and (max-width:1100px) {
-    .main {
-        width: 95%;
-        margin: auto;
-        display: grid;
-        grid-column-gap: 20px;
-        grid-template-areas: 'main main main right right right'
-        'footer footer footer right right right';
+    .awer21{
+        flex-direction: column;
+    }
+    .channelDetails{
+        margin: 10px 0;
+        display: flex;
     }
     .videoContainer {
         width: 100%;
@@ -216,12 +110,10 @@
 
 
 @media screen and (max-width:1000px) {
-    .main{
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        /* background-color: brown; */
-    }
+.awer21{
+    flex-direction: column;
+    margin-bottom: 10px;
+}
     .leftContainer{
         width: 100%;
     }
@@ -280,11 +172,7 @@
 
 
 @media screen and (max-width:450px) {
-    .main{
-        display: flex;
-        flex-direction: column;
-        /* background-color: brown; */
-    }
+
     .leftContainer{
         width: 100%;
     }
@@ -293,11 +181,6 @@
         height: 250px;
         background-color: azure;
         border-radius: 25px;
-    }
-    .afq24 {
-        width: 80%;
-        /* background-color: blueviolet; */
-        margin: 10px 0;
     }
     .userImage{
         width: 25px;
@@ -314,17 +197,10 @@
     .text{
         font-size: 12px;
     }
-    .rightContainer{
-        width: 100%;
-    }
 }
 
 @media screen and (max-width:300px) {
-    .main{
-        display: flex;
-        flex-direction: column;
-        /* background-color: brown; */
-    }
+
     .leftContainer{
         width: 100%;
     }
@@ -333,11 +209,6 @@
         height: 200px;
         background-color: azure;
         border-radius: 25px;
-    }
-    .afq24 {
-        width: 80%;
-        /* background-color: blueviolet; */
-        margin: 10px 0;
     }
     .userImage{
         width: 20px;

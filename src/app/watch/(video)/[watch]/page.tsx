@@ -13,7 +13,7 @@ export default function page({ params }: { params: { watch: string } }) {
     <>
    
       <BigLeftNavBar/>
-    <div className={Style.container}>     
+    <div className={`${isLeftNavHidden?Style.container:Style.hideContainer}`}>     
       <div className={`${Style.main}`}>
         <WatchComponent/>
         <VideoSuggest params={params} />

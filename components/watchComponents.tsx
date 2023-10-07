@@ -1,5 +1,5 @@
 import Image from "next/image"
-import Style from "@/app/style/watchpage.module.css"
+import Style from "@/app/style/watchComponent.module.css"
 export default function WatchComponent(){
     return(
         <div className={Style.hhftrf214}>
@@ -11,7 +11,7 @@ export default function WatchComponent(){
           <div className={`${Style.flex}  ${Style.fd_c} ${Style.video_details}`}>
             {/* Video title */}
             <h2>Nira Video Song (Extended version) Takkar Tamil | Siddarth | Kartik G Krish | Nivash K Prasana</h2>
-            <div className={Style.flex}>
+            <div className={Style.awer21}>
               {/* Channel name */}
               <div className={`${Style.channelDetails} ${Style.at_c}`}>
                 <Image className={`${Style.userImage} ${Style.mr_10}`} src='/assets/images/person.jpg' width={50} height={50} alt="" priority />
@@ -22,34 +22,34 @@ export default function WatchComponent(){
                 </div>
                 <button className={Style.subButton}>Subcribe</button>
               </div>  {/* Channel details div end*/}
-              <div className={`${Style.flex} ${Style.at_c} `}>  {/* Button start*/}
+              <div className={`${Style.flex} ${Style.at_c} ${Style.optionBtn}`}>  {/* Button start*/}
 
                 {/* Like and dislike button */}
-                <div className={`${Style.flex} ${Style.at_c} ${Style.mr_10} `}>
+                <div className={`${Style.flex} ${Style.at_c} ${Style.mr_10} ${Style.btn}`}>
                   {/* Like Button */}
                   <div className={`${Style.flex} ${Style.at_c} ${Style.mr_10}`}>
                     <Image className={Style.mr_10} src="/assets/images/likeIcon.png" width={20} height={20} alt="" priority />
                     321K
                   </div>
                   {/* Dislike Button */}
-                  <div className={`${Style.flex} ${Style.at_c} ${Style.mr_10}`}>
+                  <div className={`${Style.flex} ${Style.at_c} `}>
                     <Image className={Style.mr_10} src="/assets/images/dislikeIcon.png" width={20} height={20} alt="" priority />
                   </div>
 
                 </div> {/* Like and Dislike button end*/}
 
 
-                <div className={`${Style.flex} ${Style.at_c} ${Style.mr_10} `}> {/*Share button */}
+                <div className={`${Style.flex} ${Style.at_c} ${Style.mr_10} ${Style.btn}`}> {/*Share button */}
                   <Image className={Style.mr_10} src="/assets/images/sendIcon.png" width={20} height={20} alt="" priority />
                   Share
                 </div>
 
-                <div className={`${Style.flex} ${Style.at_c} ${Style.mr_10}`}> {/*Download button*/}
+                <div className={`${Style.flex} ${Style.at_c} ${Style.mr_10} ${Style.btn}`}> {/*Download button*/}
                   <Image className={Style.mr_10} src="/assets/images/downloadIcon.png" width={20} height={20} alt="" priority />
                   Download
                 </div> {/*Download button end*/}
 
-                <div className={`${Style.flex} ${Style.at_c} ${Style.mr_10}`}> {/*Save button*/}
+                <div className={`${Style.flex} ${Style.at_c} ${Style.mr_10} ${Style.btn}`}> {/*Save button*/}
                   <Image className={Style.mr_10} src="/assets/images/saveIcon.png" width={20} height={20} alt="" priority />
                   Save
                 </div>
