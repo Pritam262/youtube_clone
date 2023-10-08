@@ -2,4 +2,21 @@
     width: 25vw;
     background-color: blue;
     height: 80vh;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    position: relative;
+}
+
+.option{
+    width: 10%;
+    height: 30vh;
+    background-color: blueviolet;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    position: absolute;
+    right: 5%;
+    bottom: 2%;
+    transform: translate(-5% -2%);
 }
