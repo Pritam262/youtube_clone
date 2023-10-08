@@ -1,13 +1,9 @@
 "use client";
 import Style from "@/app/style/shortPage.module.css";
-import Image from "next/image";
-import Watchcomment from "../../../../../components/watchComment";
-import VideoSuggest from "../../../../../components/watchVideoSuggest"
-import { Bai_Jamjuree } from "next/font/google";
-import WatchComponent from "../../../../../components/watchComponents";
 import BigLeftNavBar from "../../../../../components/bigNavLeftbar";
 import { useAppContext } from "@/app/context/appContext";
 import ShortVideo from "../../../../../components/shortVideo";
+import ShortVideoCommand from "../../../../../components/shortVideoCommant";
 export default function page({ params }: { params: { shorts: string } }) {
   const { isLeftNavHidden} = useAppContext();
   return (
@@ -16,6 +12,7 @@ export default function page({ params }: { params: { shorts: string } }) {
       <BigLeftNavBar/>
       <div className={`${Style.main}`}>
         <ShortVideo params={params}/>
+        <ShortVideoCommand params={params}/>
       </div>
       <div className={`${isLeftNavHidden? '':Style.hredq1}`}></div>
     </div>
