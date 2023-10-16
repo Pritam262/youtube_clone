@@ -4,7 +4,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* background-color: brown; */
     /* border-right: 1px solid rgba(151, 151, 151, 0.767); */
     position: fixed;
     transition: 0.3s;
@@ -74,7 +73,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* background-color: brown; */
     /* border-right: 1px solid rgba(151, 151, 151, 0.767); */
     position: fixed;
     transition: 0.3s;

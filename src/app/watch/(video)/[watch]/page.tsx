@@ -15,9 +15,9 @@ export default function page({ params }: { params: { watch: string } }) {
       <BigLeftNavBar/>
     <div className={`${isLeftNavHidden?Style.container:Style.hideContainer}`}>     
       <div className={`${Style.main}`}>
-        <WatchComponent/>
+        <WatchComponent params={params}/>
         <VideoSuggest params={params} />
-        <Watchcomment />
+        <Watchcomment params={params}/>
       </div>
       <div className={`${isLeftNavHidden? '':Style.hredq1}`}></div>
     </div>
