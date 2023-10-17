@@ -57,6 +57,9 @@
 .mr_10{
     margin-right: 10px;
 }
+.likeBtn{
+    margin-right: 15px;
+}
 .subButton{
     /* background-color: brown; */
     border-radius: 50px;

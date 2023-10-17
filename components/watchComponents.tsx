@@ -144,8 +144,8 @@ import { useState, useEffect } from "react";
 interface Video {
   _id: string;
   user: string;
-  fname:string;
-  lname:string;
+  fname: string;
+  lname: string;
   title: string;
   description: string; // Fixed typo here
   coverImage: string;
@@ -154,8 +154,14 @@ interface Video {
   date: string;
 }
 
+interface LikeDislike {
+  likeCount: number;
+}
+
+
 export default function WatchComponent({ params }: { params: { watch: string } }) {
   const [video, setVideo] = useState<Video[]>([]);
+  const [count, setcount] = useState<LikeDislike[]>([])
   const [isLoading, setIsLoading] = useState(false);
 
   const calculateRelativeTime = (uploadDate: Date) => {
@@ -186,13 +192,12 @@ export default function WatchComponent({ params }: { params: { watch: string } }
     try {
       const headers = new Headers();
       headers.append('videoid', params.watch);
-      const response = await fetch(`http://localhost:3000/api/video/getvideo`, {
+      const videoresponse = await fetch(`http://localhost:3000/api/video/getvideo`, {
         method: 'GET',
         headers: headers,
       });
-      const data = await response.json();
-
-      console.log(data.user);
+      const data = await videoresponse.json();
+      // console.log(data.user);
 
       if (data._id) { // Fixed the check for _id property
         // Create a new video object with the desired properties
@@ -200,8 +205,8 @@ export default function WatchComponent({ params }: { params: { watch: string } }
           _id: data._id,
           user: data.user,
           title: data.title,
-          fname:data.user.fname,
-          lname:data.user.lname,
+          fname: data.user.fname,
+          lname: data.user.lname,
           description: data.description, // Fixed the typo here
           coverImage: data.coverImage,
           videoFile: data.videoFile,
@@ -216,14 +221,42 @@ export default function WatchComponent({ params }: { params: { watch: string } }
     }
   };
 
+  const fetchLikeDislike = async () => {
+    try {
+      const headers = new Headers();
+      headers.append('videoid', params.watch);
+      const likeResponse = await fetch('http://localhost:3000/api/video/getlike', {
+        method: 'GET',
+        headers: headers
+      })
+
+      const like = await likeResponse.json();
+      console.log(like)
+      // console.log(data.user);
+      if (like) {
+        const newLikeDislike: LikeDislike = {
+          likeCount: like.likeCount
+        }
+
+        setcount([newLikeDislike]);
+      }
+
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  }
+
+
   useEffect(() => {
     fetchData();
+    fetchLikeDislike();
   }, []);
+
 
   return (
     <div className={Style.hhftrf214}>
       {/* <div className={Style.videoContainer}> */}
-        <video className={Style.video} src={video[0]?.videoFile} controls autoPlay width={1200} height={650}></video>
+      <video className={Style.video} src={video[0]?.videoFile} controls autoPlay width={1200} height={650}></video>
       {/* </div> */}
       {/* Video details */}
       <div>
@@ -247,9 +280,9 @@ export default function WatchComponent({ params }: { params: { watch: string } }
               {/* Like and dislike button */}
               <div className={`${Style.flex} ${Style.at_c} ${Style.mr_10} ${Style.btn}`}>
                 {/* Like Button */}
-                <div className={`${Style.flex} ${Style.at_c} ${Style.mr_10}`}>
+                <div className={`${Style.flex} ${Style.at_c}  ${Style.likeBtn}`}>
                   <Image className={Style.mr_10} src="/assets/images/likeIcon.png" width={20} height={20} alt="" priority />
-                  321K
+                  { count[0]?.likeCount}
                 </div>
                 {/* Dislike Button */}
                 <div className={`${Style.flex} ${Style.at_c} `}>
