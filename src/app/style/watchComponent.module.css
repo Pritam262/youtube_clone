@@ -16,10 +16,15 @@
     width: 100%;
     height: 650px;
     /* background-color: azure; */
-    background-color: rgba(240, 255, 255, 0.514);
+    /* background-color: rgba(240, 255, 255, 0.514); */
     border-radius: 25px;
 }
-
+.video{
+    width: 100%;
+    height: 100%;
+    border-radius: 25px;
+    object-fit: cover;
+}
 .userImage {
     border-radius: 50%;
     /* border: 1px solid red; */
@@ -72,10 +77,6 @@
     width: 100%;
     height: fit-content;
     grid-area: main;
-    /* background-color: blue; */
-}
-.optionBtn{
-    /* background-color: blue; */
 }
 .btn{
     padding: 10px 10px;

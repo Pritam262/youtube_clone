@@ -4,8 +4,13 @@ import BigLeftNavBar from "../../../../../components/bigNavLeftbar";
 import { useAppContext } from "@/app/context/appContext";
 import ShortVideo from "../../../../../components/shortVideo";
 import ShortVideoCommand from "../../../../../components/shortVideoCommant";
+import { useEffect } from "react";
 export default function page({ params }: { params: { shorts: string } }) {
-  const { isLeftNavHidden} = useAppContext();
+  const { isLeftNavHidden, setisLeftNavHidden} = useAppContext();
+  useEffect(() => {
+  setisLeftNavHidden(true)
+  }, [])
+  
   return (
     <div className={Style.container}>
       

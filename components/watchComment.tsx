@@ -72,7 +72,7 @@ export default function Watchcomment({ params }: { params: { watch: string } }) 
         });
 
         setTotalItems(data.total);
-        setCommentlist((prevCommentList) => [...prevCommentList, ...comments]);
+        setCommentlist((prevCommentList) => [...commentlist, ...comments]);
         setPage(newPage);
       }
     } catch (error) {

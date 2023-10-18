@@ -47,8 +47,8 @@ import { useEffect, useState } from 'react';
 interface Video {
     _id: string;
     user: string;
-    fname:string;
-    lname:string;
+    fname: string;
+    lname: string;
     title: string;
     coverImage: string;
     views: number;
@@ -60,7 +60,7 @@ export default function Home() {
     const [page, setPage] = useState<number>(1);
     const [videoList, setVideoList] = useState<Video[]>([]);
     const [totalItems, setTotalItems] = useState<number>(0);
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
     const [fetchingData, setFetchingData] = useState(false); // Add a fetching flag
 
     const calculateRelativeTime = (uploadDate: Date) => {
@@ -97,9 +97,8 @@ export default function Home() {
         try {
             const response = await fetch(`http://localhost:3000/api/video/allvideo?page=${newPage}`);
             const data = await response.json();
-
             if (data.list && data.list.items) {
-                const videos = data.list.items.map((video: { date: string | number | Date; fname: string; lname:string; user: { fname: string, lname:string;}; }) => {
+                const videos = data.list.items.map((video: { date: string | number | Date; fname: string; lname: string; user: { fname: string, lname: string; }; }) => {
                     const uploadDate = new Date(video.date);
                     video.date = calculateRelativeTime(uploadDate);
                     video.fname = video.user.fname
@@ -108,8 +107,10 @@ export default function Home() {
                 });
 
                 setTotalItems(data.list.total);
-                setVideoList((prevVideoList) => [...prevVideoList, ...videos]);
+                // setVideoList((prevVideoList) => [...prevVideoList, ...videos]);
+                setVideoList((prevVideoList) => [...videoList, ...videos]);
                 setPage(newPage);
+                setIsLoading(false)
             }
         } catch (error) {
             console.error('Error fetching data:', error);
@@ -123,7 +124,6 @@ export default function Home() {
             fetchData(page);
         }
     }, []);
-
     const handleScroll = () => {
         if (isLoading || fetchingData) {
             return; // Return early if data is being loaded
@@ -135,10 +135,10 @@ export default function Home() {
         const scrollPercentage = (scrollPosition / (documentHeight - windowHeight)) * 100;
 
         if (scrollPercentage >= 80 && videoList.length < totalItems) {
+            console.log(scrollPercentage >= 80)
             fetchData(page + 1);
         }
     };
-
     useEffect(() => {
         window.addEventListener('scroll', handleScroll);
         return () => {
@@ -150,29 +150,34 @@ export default function Home() {
         <div className={Style.mainContainer}>
             <HomeleftNavbar />
 
-            <div className={`${isLeftNavHidden ? Style.m_5 : Style.cardContainer}`}>
-                {videoList.map((video) => (
-                    <div className={Style.slgd12} key={video._id} >
-                        <div className={Style.card}>
-                            <Link href={`/watch/${encodeURIComponent(video._id)}`}>
 
-                                <Image src={video.coverImage} className={Style.coverImage} width={312} height={180} alt='' priority />
-                                <div className={`${Style.flex} ${Style.videoDetails}`}>
-                                    <Image className={Style.channel} src='/assets/images/person.jpg' width={50} height={50} alt='' priority />
-                                    <div className={Style.details}>
-                                        <h3>{video.title.length > 20 ? `${video.title.substring(0, 20)}...` : video.title}</h3>
-                                        <p className={Style.content}>{video.fname} {video.lname}</p>
-                                        <span className={`${Style.content} ${Style.flex}`}>
-                                            <p className={Style.views}>{video.views} Views</p>
-                                            <p className={Style.time}>{video.date}</p>
-                                        </span>
+            <div className={`${isLeftNavHidden ? Style.m_5 : Style.cardContainer} ${Style.dtrm}`}>
+                <div className={Style.box}>
+                    {videoList.map((video) => (
+                        // <div className={Style.slgd12} key={video._id} >
+                            <div className={Style.card} key={video._id}>
+                                <Link href={`/watch/${encodeURIComponent(video._id)}`}>
+
+                                    <Image src={video.coverImage} className={Style.coverImage} width={312} height={180} alt='' priority />
+                                    <div className={`${Style.flex} ${Style.videoDetails}`}>
+                                        <Image className={Style.channel} src='/assets/images/person.jpg' width={50} height={50} alt='' priority />
+                                        <div className={Style.details}>
+                                            <h3 className={Style.title}>{video.title.length > 55 ? `${video.title.substring(0, 20)}...` : video.title}</h3>
+                                            <p className={Style.content}>{video.fname} {video.lname}</p>
+                                            <span className={`${Style.content} ${Style.flex}`}>
+                                                <p className={`${Style.views} ${Style.text}`}>{video.views} Views</p>
+                                                <p className={`${Style.time} ${Style.text}`}>{video.date}</p>
+                                            </span>
+                                        </div>
                                     </div>
-                                </div>
 
-                            </Link>
-                        </div>
-                    </div>
-                ))}
+                                </Link>
+                            </div>
+                        // </div>
+                    ))}
+                </div>
+            {/* {isLoading ? <h1 style={{textAlign:'center'}}>Loading</h1> : ''} */}
+            {isLoading ? <Image style={{margin:'auto'}} src='/assets/images/loading.gif' width={50} height={50} alt=''/> : ''}
             </div>
         </div>
     );
