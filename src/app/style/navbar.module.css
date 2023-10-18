@@ -1,8 +1,6 @@
 .navbar {
     width: 100vw;
     height: 8vh;
-    /* background-color: rgb(0, 60, 255); */
-    /* background-color: blueviolet; */
     padding: 0 20px;
     position: fixed;
     background-color: #000;
@@ -93,8 +91,38 @@
 }
 
 
+@media screen and (max-width:1300px) {
+    .leftMenu {
+        width:10%;
+    }
+    .inIcon{
+        width: 20px;
+        height: 20px;
+        /* background-color: rgb(110, 110, 110); */
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .icon {
+        width: 20px;
+        height: 20px;
+        
+    }
 
-@media screen and (max-width: 900px) {
+    .centerContainer {
+        width: 60%;
+        /* background-color: rgb(181, 175, 187); */
+    }
+    .rightContainer {
+        width: 20%;
+    }
+    .text{
+        font-size: 15px;
+    }
+    
+  }
+  @media screen and (max-width:900px) {
     .leftMenu {
         width:10%;
     }
@@ -125,12 +153,11 @@
         border-radius: 50px;
     }
     .rightContainer {
-        width: 20%;
-        background-color: blueviolet;
+        width: 25%;
         /* background-color: rgb(63, 96, 97, 0.4); */
     }
     .text{
-        font-size: 15px;
+        font-size: 12px;
     }
     
   }
@@ -138,7 +165,7 @@
 
   @media screen and (max-width: 500px) {
     .leftMenu {
-        width:10%;
+        width:15%;
     }
     .inIcon{
         width: 20px;
@@ -150,14 +177,13 @@
         justify-content: center;
     }
     .icon {
-        width: 15px;
-        height: 15px;
+        width: 10px;
+        height: 10px;
         
     }
 
     .centerContainer {
-        width: 60%;
-        /* background-color: rgb(181, 175, 187); */
+        width: 50%;
     }
     .searchContainer {
         width: 95%;
@@ -169,18 +195,16 @@
     .searchField {
         width: 100%;
         /* border: 1px solid red; */
-        padding: 10px 40px;
+        padding: 5px 10px;
         border-top-left-radius: 50px;
         border-bottom-left-radius: 50px;
         background-image: none;
-        background-position: 7px 7px;
+        background-position: 2px 2px;
         background-repeat: no-repeat;
-        /* margin-right: 15px; */
         border: none;
-        background-color: #000;
     }
     .searchField{
-        padding: 5px;
+        padding: 2px;
     }
     .settingIcon{
         width: 20px;
@@ -190,12 +214,24 @@
         margin-left: 5px;
      }
     .rightContainer {
-        width: 30%;
-        /* background-color: blueviolet; */
-        /* background-color: rgb(63, 96, 97, 0.4); */
+        width: 25%;
+    }
+    .loginBtn{
+        width: 80%;
     }
     .text{
-        font-size: 10px;
+        font-size: 8px;
     }
     
   }
+
+
+  @media screen and (max-width: 300px) {
+    .text{
+        font-size: 5px;
+    }
+    
+  }
+
+
+  

@@ -97,17 +97,17 @@
     /* background-color: #000; */
 }
 
-.comment {
-    width: 100%;
-    display: flex;
-    margin: 15px 0;
-}
+
 
 .fget6 {
     width: 100%;
     margin-left: 15px;
     display: flex;
     flex-direction: column;
+}
+.jtder45{
+    /* background-color: blue; */
+    grid-area: footer;
 }
 
 .dyt245 {
@@ -133,6 +133,12 @@
     border-radius: 50px;
 }
 
+.comment {
+    width: 100%;
+    display: flex;
+    margin: 15px 0;
+    /* background-color: blue; */
+}
 .commentTime {
     margin-left: 15px;
     color: rgb(110, 110, 110);
@@ -174,10 +180,7 @@
     height: fit-content;
     grid-area: main;
 }
-.jtder45{
-    /* background-color: blue; */
-    grid-area: footer;
-}
+
 @media screen  and (max-width:1280px) {
     .main {
         width: 95%;

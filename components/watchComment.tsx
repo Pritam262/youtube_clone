@@ -19,7 +19,7 @@ export default function Watchcomment({ params }: { params: { watch: string } }) 
 
   const [page, setPage] = useState<number>(1);
   const [commentlist, setCommentlist] = useState<comment[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [fetchingData, setFetchingData] = useState(false); // Add a fetching flag
   const [totalItems, setTotalItems] = useState<number>(0);
   const calculateRelativeTime = (uploadDate: Date) => {
@@ -74,6 +74,7 @@ export default function Watchcomment({ params }: { params: { watch: string } }) 
         setTotalItems(data.total);
         setCommentlist((prevCommentList) => [...commentlist, ...comments]);
         setPage(newPage);
+        setIsLoading(false);
       }
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -109,8 +110,6 @@ export default function Watchcomment({ params }: { params: { watch: string } }) 
       window.removeEventListener('scroll', handleScroll);
     };
   }, [commentlist, isLoading, fetchingData, page]);
-
-  console.log(commentlist);
   return (
     <>
 
@@ -134,24 +133,27 @@ export default function Watchcomment({ params }: { params: { watch: string } }) 
             <input className={`${Style.commentField}`} type="text" placeholder="Add your comment" />
           </div>
         </div>   {/* Add comment container end*/}
+
         {commentlist.map((comment) => {
-          return (<>
+          return (
+
+            <div key={comment._id}>
 
             {/* Comment show*/}
-            <div className={Style.comment} key={comment._id}>
+            <div className={Style.comment}>
               <Image src='/assets/images/person.jpg' className={Style.userImage} width={50} height={50} alt="" priority />
               <div className={Style.fget6}>
                 <span><p className={`${Style.pinComment} ${Style.text}`}>Pined by Studyiq IAS</p></span>
                 <span className={`${Style.dyt245}`}><span className={Style.fdes45}><p className={Style.skew41}>@{comment.fname}{comment.lname}</p> </span><p className={`${Style.commentTime} ${Style.text}`}>{comment.date}</p></span>
-                <p className={Style.text}>{comment.comment}
-                </p>
+                <p className={Style.text}>{comment.comment}</p>
               </div>
             </div>
-          </>
+
+          </div>
           )
         })}
-
-
+        {isLoading ? <Image style={{margin:'auto'}} src='/assets/images/loading.gif' width={50} height={50} alt=''/> : ''}
+     
       </div> {/* Coomment container end */}
     </>
   )

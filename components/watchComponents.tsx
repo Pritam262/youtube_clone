@@ -93,7 +93,6 @@ export default function WatchComponent({ params }: { params: { watch: string } }
       })
 
       const like = await likeResponse.json();
-      console.log(like)
       // console.log(data.user);
       if (like) {
         const newLikeDislike: LikeDislike = {
@@ -118,7 +117,7 @@ export default function WatchComponent({ params }: { params: { watch: string } }
   return (
     <div className={Style.hhftrf214}>
       <div className={Style.videoContainer}>
-        <video className={Style.video} src={video[0]?.videoFile} controls autoPlay width={1200} height={650}></video>
+        <video className={Style.video} src={video[0]?.videoFile} controls autoPlay ></video>
       </div>
       {/* Video details */}
       <div>
@@ -143,24 +142,24 @@ export default function WatchComponent({ params }: { params: { watch: string } }
               <div className={`${Style.flex} ${Style.at_c} ${Style.mr_10} ${Style.btn}`}>
                 {/* Like Button */}
                 <div className={`${Style.flex} ${Style.at_c}  ${Style.likeBtn}`}>
-                  <Image className={Style.mr_10} src="/assets/images/likeIcon.png" width={20} height={20} alt="" priority />
+                  <Image className={`${Style.mr_10} ${Style.icon}`} src="/assets/images/likeIcon.png" width={20} height={20} alt="" priority />
                   {count[0]?.likeCount}
                 </div>
                 {/* Dislike Button */}
                 <div className={`${Style.flex} ${Style.at_c} `}>
-                  <Image className={Style.mr_10} src="/assets/images/dislikeIcon.png" width={20} height={20} alt="" priority />
+                  <Image className={`${Style.mr_10} ${Style.icon}`} src="/assets/images/dislikeIcon.png" width={20} height={20} alt="" priority />
                 </div>
               </div> {/* Like and Dislike button end */}
               <div className={`${Style.flex} ${Style.at_c} ${Style.mr_10} ${Style.btn}`}> {/* Share button */}
-                <Image className={Style.mr_10} src="/assets/images/sendIcon.png" width={20} height={20} alt="" priority />
+                <Image className={`${Style.mr_10} ${Style.icon}`} src="/assets/images/sendIcon.png" width={20} height={20} alt="" priority />
                 Share
               </div>
               <div className={`${Style.flex} ${Style.at_c} ${Style.mr_10} ${Style.btn}`}> {/* Download button */}
-                <Image className={Style.mr_10} src="/assets/images/downloadIcon.png" width={20} height={20} alt="" priority />
+                <Image className={`${Style.mr_10} ${Style.icon}`} src="/assets/images/downloadIcon.png" width={20} height={20} alt="" priority />
                 Download
               </div> {/* Download button end */}
               <div className={`${Style.flex} ${Style.at_c} ${Style.mr_10} ${Style.btn}`}> {/* Save button */}
-                <Image className={Style.mr_10} src="/assets/images/saveIcon.png" width={20} height={20} alt="" priority />
+                <Image className={`${Style.mr_10} ${Style.icon}`} src="/assets/images/saveIcon.png" width={20} height={20} alt="" priority />
                 Save
               </div>
             </div>

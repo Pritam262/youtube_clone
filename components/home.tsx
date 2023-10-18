@@ -64,8 +64,27 @@ export default function Home() {
     const [fetchingData, setFetchingData] = useState(false); // Add a fetching flag
 
     const calculateRelativeTime = (uploadDate: Date) => {
-        const currentDate = new Date();
-        const timeDifference = Math.floor((currentDate.getTime() - uploadDate.getTime()) / 1000);
+
+        // const currentDate = new Date();
+        // const timeDifference = Math.floor((currentDate.getTime() - uploadDate.getTime()) / 1000);
+
+
+         // Determine the user's time zone
+    const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+    // console.log(userTimeZone);
+
+    // Convert the uploadDate to the user's time zone
+    const userUploadDate = new Date(uploadDate.toLocaleString('en-US', { timeZone: userTimeZone }));
+
+    console.log(userUploadDate);
+
+    const currentDate = new Date();
+    const timeDifference = Math.floor((currentDate.getTime() - userUploadDate.getTime()) / 1000);
+
+
+
+        console.log(`Time diference: ${timeDifference}`);
 
         if (timeDifference < 60) {
             return `${timeDifference} second${timeDifference !== 1 ? 's' : ''} ago`;
@@ -95,7 +114,7 @@ export default function Home() {
         setFetchingData(true);
 
         try {
-            const response = await fetch(`http://localhost:3000/api/video/allvideo?page=${newPage}`);
+            const response = await fetch(`http://localhost:3000/api/video/allvideo?page=${newPage}`,{cache:'default'});
             const data = await response.json();
             if (data.list && data.list.items) {
                 const videos = data.list.items.map((video: { date: string | number | Date; fname: string; lname: string; user: { fname: string, lname: string; }; }) => {
@@ -158,11 +177,11 @@ export default function Home() {
                             <div className={Style.card} key={video._id}>
                                 <Link href={`/watch/${encodeURIComponent(video._id)}`}>
 
-                                    <Image src={video.coverImage} className={Style.coverImage} width={312} height={180} alt='' priority />
+                                    <Image src={video.coverImage} className={Style.coverImage} width={312} height={180} alt='' blurDataURL='/assets/images/blur.avif' priority />
                                     <div className={`${Style.flex} ${Style.videoDetails}`}>
                                         <Image className={Style.channel} src='/assets/images/person.jpg' width={50} height={50} alt='' priority />
                                         <div className={Style.details}>
-                                            <h3 className={Style.title}>{video.title.length > 55 ? `${video.title.substring(0, 20)}...` : video.title}</h3>
+                                            <h3 className={Style.title}>{video.title.length > 10 ? `${video.title.substring(0, 20)}...` : video.title}</h3>
                                             <p className={Style.content}>{video.fname} {video.lname}</p>
                                             <span className={`${Style.content} ${Style.flex}`}>
                                                 <p className={`${Style.views} ${Style.text}`}>{video.views} Views</p>
