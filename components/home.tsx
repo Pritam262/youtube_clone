@@ -77,14 +77,8 @@ export default function Home() {
     // Convert the uploadDate to the user's time zone
     const userUploadDate = new Date(uploadDate.toLocaleString('en-US', { timeZone: userTimeZone }));
 
-    console.log(userUploadDate);
-
     const currentDate = new Date();
     const timeDifference = Math.floor((currentDate.getTime() - userUploadDate.getTime()) / 1000);
-
-
-
-        console.log(`Time diference: ${timeDifference}`);
 
         if (timeDifference < 60) {
             return `${timeDifference} second${timeDifference !== 1 ? 's' : ''} ago`;
