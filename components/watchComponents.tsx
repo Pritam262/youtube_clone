@@ -3,6 +3,7 @@ import Image from "next/image";
 import Style from "@/app/style/watchComponent.module.css";
 import { useState, useEffect } from "react";
 
+const URLLink = `http://192.168.50.14:3000`;
 interface Video {
   _id: string;
   user: string;
@@ -54,7 +55,7 @@ export default function WatchComponent({ params }: { params: { watch: string } }
     try {
       const headers = new Headers();
       headers.append('videoid', params.watch);
-      const videoresponse = await fetch(`http://localhost:3000/api/video/getvideo`, {
+      const videoresponse = await fetch(`${URLLink}/api/video/getvideo`, {
         method: 'GET',
         headers: headers,
       });
@@ -87,7 +88,7 @@ export default function WatchComponent({ params }: { params: { watch: string } }
     try {
       const headers = new Headers();
       headers.append('videoid', params.watch);
-      const likeResponse = await fetch('http://localhost:3000/api/video/getlike', {
+      const likeResponse = await fetch(`${URLLink}/api/video/getlike`, {
         method: 'GET',
         headers: headers
       })

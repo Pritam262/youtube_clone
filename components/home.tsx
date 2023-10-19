@@ -108,7 +108,7 @@ export default function Home() {
         setFetchingData(true);
 
         try {
-            const response = await fetch(`http://localhost:3000/api/video/allvideo?page=${newPage}`,{cache:'default'});
+            const response = await fetch(`http://192.168.50.14:3000/api/video/allvideo?page=${newPage}`,{cache:'default'});
             const data = await response.json();
             if (data.list && data.list.items) {
                 const videos = data.list.items.map((video: { date: string | number | Date; fname: string; lname: string; user: { fname: string, lname: string; }; }) => {
