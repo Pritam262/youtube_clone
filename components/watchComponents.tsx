@@ -26,6 +26,15 @@ export default function WatchComponent({ params }: { params: { watch: string } }
   const [video, setVideo] = useState<Video[]>([]);
   const [count, setcount] = useState<LikeDislike[]>([])
   const [isLoading, setIsLoading] = useState(false);
+  const [ismore, setIsmore] = useState(true); // Explicitly set the initial state to false
+
+  const videoDescription = video[0]?.description;
+  const truncatedDescription = videoDescription?.substring(0, 20);
+
+
+  const handleClick = () => {
+    setIsmore(!ismore); // Toggle the state when the button is clicked
+  };
 
   const calculateRelativeTime = (uploadDate: Date) => {
     const currentDate = new Date();
@@ -64,7 +73,9 @@ export default function WatchComponent({ params }: { params: { watch: string } }
 
       if (data._id) { // Fixed the check for _id property
         // Create a new video object with the desired properties
+        const uploadDate = new Date(data.date);
         const newVideo: Video = {
+
           _id: data._id,
           user: data.user,
           title: data.title,
@@ -74,7 +85,7 @@ export default function WatchComponent({ params }: { params: { watch: string } }
           coverImage: data.coverImage,
           videoFile: data.videoFile,
           views: data.views,
-          date: data.date,
+          date: calculateRelativeTime(uploadDate),
         };
 
         setVideo([newVideo]);
@@ -167,7 +178,12 @@ export default function WatchComponent({ params }: { params: { watch: string } }
           </div>
           {/* Video description */}
           <div className={Style.videoDescription}>
-            <p className={Style.text}>{video[0]?.description}</p>
+            <p className={Style.text}>{video[0]?.date}</p>
+            {/* <p className={Style.text}>{video[0]?.description.length >60 ? `${video[0]?.description.substring(0,20)}... more`: video[0]?.description}</p> */}
+            <p className={Style.text}>
+              {ismore && videoDescription?.length > 60 ? `${truncatedDescription}... ` : `${videoDescription} `}
+              {videoDescription?.length > 60 && <button className={Style.showClick} onClick={handleClick}>{ismore ? 'Show More' : 'Show Less'}</button>}
+            </p>
           </div>
         </div>
       </div>
