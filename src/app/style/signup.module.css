@@ -1,0 +1,131 @@
+.container{
+    width: 100vw;
+    height: 92vh;
+    margin-top: 8vh;
+    /* background-color: blueviolet; */
+    background-color: #fff;
+    color: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.t_center{
+    margin: 10px 0;
+    text-align: center;
+}
+.loginContainer{
+    /* width: 30vw;
+    height: 35vw; */
+    width: 400px;
+    height: 450px;
+    /* background-color: brown; */
+    border: 1px solid rgb(197, 197, 197);
+    border-radius: 10px;
+}
+
+.loginContainer .logo{
+    /* color: black; */
+    /* width: 100%; */
+    text-align: center;
+    font-size: 25px;
+    margin-top: 20px;
+}
+.formField{
+    width: 85%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* margin: 10px; */
+    margin: auto;
+
+}
+.textInput{
+    width: 100%;
+    padding: 13px;
+    background-color: transparent;
+    border: 1px solid #313131;
+    border-radius: 5px;
+    color: #000;
+    margin: 5px 0;
+}
+.link{
+    color: rgb(0, 153, 255);
+    font-weight: bold;
+    font-size: 12px;
+}
+.textSpan{
+    margin: 30px 0;
+    font-size: 12px;
+}
+.flexPass{
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+.passCheck{
+    display: flex;
+    align-items: center;
+}
+.checkBox{
+    margin-right: 6px;
+
+}
+/* .checkBox::before{
+    position: relative;
+    display: block;
+    width: 11px;
+    height: 11px;
+    border: 1px solid #808080;
+    content: "";
+    background: #FFF;
+}
+.checkBox::after{
+    position: relative;
+  left: 1px;
+  top: -12px;
+  width: 9px;
+  height: 9px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #B3B3B3 #dcddde #dcddde #B3B3B3;
+  content: "";
+  background-image: linear-gradient(135deg, #B1B6BE 0%, #FFF 100%);
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.checkBox:checked::after{
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAHCAQAAABuW59YAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAB2SURBVHjaAGkAlv8A3QDyAP0A/QD+Dam3W+kCAAD8APYAAgTVZaZCGwwA5wr0AvcA+Dh+7UX/x24AqK3Wg/8nt6w4/5q71wAAVP9g/7rTXf9n/+9N+AAAtpJa/zf/S//DhP8H/wAA4gzWj2P4lsf0JP0A/wADAHB0Ngka6UmKAAAAAElFTkSuQmCC'), linear-gradient(135deg, #B1B6BE 0%, #FFF 100%);
+} */
+.dhrg12{
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    /* background-color: blueviolet; */
+}
+
+.btn{
+    padding: 7px 15px;
+    background-color: rgb(0, 127, 211);
+    border: none;
+    border-radius: 2px;
+}
+
+@media screen and (max-width:600px) {
+    .container{
+        width: 100vw;
+        height: 92vh;
+        margin-top: 8vh;
+        /* background-color: blueviolet; */
+        background-color: #fff;
+        color: #000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .loginContainer{
+        width: 100%;
+        height: 100%;
+        /* background-color: blueviolet; */
+        border: none;
+    }
+}
