@@ -62,6 +62,7 @@ export default function Home() {
     const [totalItems, setTotalItems] = useState<number>(0);
     const [isLoading, setIsLoading] = useState(true);
     const [fetchingData, setFetchingData] = useState(false); // Add a fetching flag
+    const APPURL = `http://192.168.50.14:3000`;
 
     const calculateRelativeTime = (uploadDate: Date) => {
 
@@ -69,16 +70,16 @@ export default function Home() {
         // const timeDifference = Math.floor((currentDate.getTime() - uploadDate.getTime()) / 1000);
 
 
-         // Determine the user's time zone
-    const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        // Determine the user's time zone
+        const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
-    // console.log(userTimeZone);
+        // console.log(userTimeZone);
 
-    // Convert the uploadDate to the user's time zone
-    const userUploadDate = new Date(uploadDate.toLocaleString('en-US', { timeZone: userTimeZone }));
+        // Convert the uploadDate to the user's time zone
+        const userUploadDate = new Date(uploadDate.toLocaleString('en-US', { timeZone: userTimeZone }));
 
-    const currentDate = new Date();
-    const timeDifference = Math.floor((currentDate.getTime() - userUploadDate.getTime()) / 1000);
+        const currentDate = new Date();
+        const timeDifference = Math.floor((currentDate.getTime() - userUploadDate.getTime()) / 1000);
 
         if (timeDifference < 60) {
             return `${timeDifference} second${timeDifference !== 1 ? 's' : ''} ago`;
@@ -108,7 +109,7 @@ export default function Home() {
         setFetchingData(true);
 
         try {
-            const response = await fetch(`http://192.168.50.14:3000/api/video/allvideo?page=${newPage}`,{cache:'default'});
+            const response = await fetch(`${APPURL}/api/video/allvideo?page=${newPage}`, { cache: 'default' });
             const data = await response.json();
             if (data.list && data.list.items) {
                 const videos = data.list.items.map((video: { date: string | number | Date; fname: string; lname: string; user: { fname: string, lname: string; }; }) => {
@@ -160,14 +161,14 @@ export default function Home() {
     }, [videoList, isLoading, fetchingData, page]);
 
     return (
-        <div className={Style.mainContainer}>
-            <HomeleftNavbar />
+            <div className={`${isLeftNavHidden? Style.mainContainer:Style.smallmainContainer}`}>
+                <HomeleftNavbar />
 
 
-            <div className={`${isLeftNavHidden ? Style.m_5 : Style.cardContainer} ${Style.dtrm}`}>
-                <div className={Style.box}>
-                    {videoList.map((video) => (
-                        // <div className={Style.slgd12} key={video._id} >
+                <div className={`${isLeftNavHidden ? Style.m_5 : Style.cardContainer} ${Style.dtrm}`}>
+                    <div className={Style.box}>
+                        {videoList.map((video) => (
+                            // <div className={Style.slgd12} key={video._id} >
                             <div className={Style.card} key={video._id}>
                                 <Link href={`/watch/${encodeURIComponent(video._id)}`}>
 
@@ -186,12 +187,14 @@ export default function Home() {
 
                                 </Link>
                             </div>
-                        // </div>
-                    ))}
+                            // </div>
+                        ))}
+                    </div>
+                    {/* {isLoading ? <h1 style={{textAlign:'center'}}>Loading</h1> : ''} */}
+                    {isLoading ? <Image style={{ margin: 'auto' }} src='/assets/images/loading.gif' width={50} height={50} alt='' /> : ''}
                 </div>
-            {/* {isLoading ? <h1 style={{textAlign:'center'}}>Loading</h1> : ''} */}
-            {isLoading ? <Image style={{margin:'auto'}} src='/assets/images/loading.gif' width={50} height={50} alt=''/> : ''}
+                {isLeftNavHidden?'':<div className={Style.hdrf12}></div> }
+                {/* <div className={Style.hdrf12}>fh</div> */}
             </div>
-        </div>
     );
 }

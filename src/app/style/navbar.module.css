@@ -1,7 +1,7 @@
 .navbar {
     width: 100vw;
     height: 8vh;
-    padding: 0 20px;
+    padding: 0 30px;
     position: fixed;
     background-color: #000;
     z-index: 1;
@@ -96,6 +96,11 @@
 
 
 @media screen and (max-width:1300px) {
+    .navbar{
+        padding: 0 5px;
+        display: flex;
+        justify-content: space-around !important;
+    }
     .leftMenu {
         width:10%;
     }

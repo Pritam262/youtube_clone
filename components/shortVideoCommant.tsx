@@ -1,14 +1,17 @@
+'use client'
 import Style from '@/app/style/shortVideoCommants.module.css'
 import Image from 'next/image'
+import { useAppContext } from "@/app/context/appContext";
 export default function ShortVideoCommand({ params }: { params: { shorts: string } }){
+    const { isShortCommentHidden, shortToggle, setisShortCommentHidden} = useAppContext();
     return (
-        <div className={`${Style.container}`}>
+        <div className={`${isShortCommentHidden? Style.shortCommentHidden: Style.container}`}>
             {/* Comment heading */}
             <div className={`${Style.commentHeading} ${Style.flex}`}>
                 <p>Comments 2.8k</p>
                 <div className={`${Style.flex} ${Style.df12}`}>
                     <Image src='/assets/images/listIcon.png' width={50} height={50} alt='' priority/>
-                    <Image src='/assets/images/closeIcon.png' width={20} height={20} alt='' priority/>
+                    <Image src='/assets/images/closeIcon.png' width={20} height={20} alt='' priority onClick={shortToggle}/>
                 </div>
             </div>
             {/* Comment Container*/}

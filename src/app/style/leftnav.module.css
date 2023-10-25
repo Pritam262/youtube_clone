@@ -1,12 +1,15 @@
 .container{
     width: 15%;
-    height: 100%;
+    height: fit-content;
+    overflow-y: auto;
     display: flex;
     flex-direction: column;
     align-items: center;
     /* border-right: 1px solid rgba(151, 151, 151, 0.767); */
     position: fixed;
     transition: 0.3s;
+    z-index: 5;
+    background-color: black;
 }
 .divider{
     width: 90%;
@@ -76,4 +79,97 @@
     /* border-right: 1px solid rgba(151, 151, 151, 0.767); */
     position: fixed;
     transition: 0.3s;
+    z-index: 5;
 }
+
+@media screen and (max-width:1300px) {
+    .container{
+        width: 50%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        /* border-right: 1px solid rgba(151, 151, 151, 0.767); */
+        position: fixed;
+        transition: 0.3s;
+    }
+    .w_5{
+        width: 5%;
+        height: 94vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        /* border-right: 1px solid rgba(151, 151, 151, 0.767); */
+        position: fixed;
+        transition: 0.3s;
+        /* background-color: blueviolet; */
+    }
+}
+
+
+@media screen and (max-width:1200px) {
+    .container{
+        width: 50%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        /* border-right: 1px solid rgba(151, 151, 151, 0.767); */
+        position: fixed;
+        transition: 0.3s;
+    }
+    .w_5{
+        width: 10%;
+        height: 94vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        /* border-right: 1px solid rgba(151, 151, 151, 0.767); */
+        position: fixed;
+        transition: 0.3s;
+        /* background-color: blueviolet; */
+    }
+
+    .icon{
+        width: 15px;
+        height: 15px;
+    }
+    .textSmall{
+        font-size: 10px;
+    }
+}
+
+@media screen and (max-width:800px) {
+    .container{
+        width: 60%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        /* border-right: 1px solid rgba(151, 151, 151, 0.767); */
+        position: fixed;
+        transition: 0.3s;
+    }
+    .w_5{
+        width: 10%;
+        height: 94vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        /* border-right: 1px solid rgba(151, 151, 151, 0.767); */
+        position: fixed;
+        transition: 0.3s;
+        /* background-color: blueviolet; */
+    }
+    .icon{
+        width: 15px;
+        height: 15px;
+    }
+
+    .textSmall{
+      font-size: 6px;
+    }
+
+
+}
+

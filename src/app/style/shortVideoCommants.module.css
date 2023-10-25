@@ -4,6 +4,32 @@
     background-color: rgb(46, 46, 46);
     border-top-right-radius: 20px;
     border-bottom-right-radius: 20px;
+    animation-name: leftToRight;
+    animation-duration: .5s;
+}
+@keyframes leftToRight {
+0%{
+    margin-left: -25vw;
+}
+100%{
+    margin-left: 0;
+}
+}
+.shortCommentHidden{
+    background-color: rgb(46, 46, 46);
+    margin-left: -25vw;
+    animation-name: rightToLeft;
+    animation-duration: .5s;
+    border-radius: 20px;
+}
+@keyframes rightToLeft{
+    0%{
+        margin-left:0;
+    }
+    100%{
+        margin-left:-25vw;
+        border-radius: 20px;
+    }
 }
 .flex{
     display: flex;

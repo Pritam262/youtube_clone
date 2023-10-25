@@ -4,7 +4,6 @@ import Style from '@/app/style/navbar.module.css'
 // import { addHidden, addShow } from "@/redus/store/leftSide";
 // import {isLeftNavHidden} from '@/app/context/appState'
 import { useAppContext } from "@/app/context/appContext";
-import { useEffect } from "react";
 import Link from "next/link";
 export default function Navbar() {
     const {toggleLeftNav, isLogin, setIsLogin } = useAppContext();

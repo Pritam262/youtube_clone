@@ -1,4 +1,4 @@
-.container{
+.container {
     width: 25vw;
     background-color: blue;
     height: 80vh;
@@ -7,7 +7,15 @@
     position: relative;
 }
 
-.option{
+.hiddenContainer {
+    width: 25vw;
+    background-color: blue;
+    height: 80vh;
+    border-radius: 15px;
+    position: relative;
+}
+
+.option {
     width: 10%;
     height: 30vh;
     background-color: blueviolet;

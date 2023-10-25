@@ -22,17 +22,11 @@ export default function Login() {
             [name]: value,
         });
     };
-    // console.log(credencial);
     // Check if the confirm password matches the password
     const isConfirmPasswordValid = !credencial.password || credencial.password === credencial.conpassword;
 
     const handleSubmit = async () => {
-        // const formData = {
-        //     fname: "Subhadip",
-        //     lname: "Samanta",
-        //     email: "subhadip@gm.com",
-        //     password: "jghhwdtysd134@$%#@",
-        //   };
+
         console.log(`BODY: ${JSON.stringify(credencial)}`);
         const response = await fetch('http://192.168.50.14:3000/api/auth/register', {
             method: 'POST',
