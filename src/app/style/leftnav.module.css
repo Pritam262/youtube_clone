@@ -1,6 +1,6 @@
 .container{
     width: 15%;
-    height: fit-content;
+    height: 92vh;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
@@ -15,7 +15,7 @@
     width: 90%;
     height: 2px;
     background-color: rgba(151, 151, 151, 0.767);
-    margin: 10px 0;
+    margin: 1px 0;
 }
 .srgfr45{
     width: 70%;

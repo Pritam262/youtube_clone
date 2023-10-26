@@ -5,11 +5,11 @@ type AppContextType = {
   isLeftNavHidden: boolean;
   setisLeftNavHidden: (hidden: boolean) => void;
   toggleLeftNav: () => void;
-  isLogin:boolean;
+  isLogin: boolean;
   setIsLogin: (loginStatus: boolean) => void; // Add setIsLogin function
-  isShortCommentHidden:boolean;
-  setisShortCommentHidden :(hidden:boolean)=>void;
-  shortToggle :()=> void;
+  isShortCommentHidden: boolean;
+  setisShortCommentHidden: (hidden: boolean) => void;
+  shortToggle: () => void;
 };
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -29,23 +29,21 @@ type AppProviderProps = {
 export function AppProvider({ children }: AppProviderProps) {
   const [isLeftNavHidden, setisLeftNavHidden] = useState(true);
   const [isLogin, setIsLogin] = useState(false); // Initialize isLogin state
-const [isShortCommentHidden, setisShortCommentHidden] = useState(true);
+  const [isShortCommentHidden, setisShortCommentHidden] = useState(true);
 
   useEffect(() => {
     // Check if there's an "auth-token" in local storage to determine if the user is logged in
     const authToken = localStorage.getItem("auth-token");
     setIsLogin(!!authToken); // Set isLogin to true if authToken is present
-
-    // You can also perform other actions here, like checking the validity of the token, etc.
-  }, []);
+  }, [isLogin]);
 
 
   const toggleLeftNav = () => {
     setisLeftNavHidden((prev) => !prev);
   };
-  const shortToggle = ()=>{
+  const shortToggle = () => {
 
-    setisShortCommentHidden((prev)=>!prev);
+    setisShortCommentHidden((prev) => !prev);
   }
 
   const contextValue: AppContextType = {

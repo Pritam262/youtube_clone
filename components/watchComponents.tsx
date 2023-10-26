@@ -2,8 +2,10 @@
 import Image from "next/image";
 import Style from "@/app/style/watchComponent.module.css";
 import { useState, useEffect } from "react";
-
+import { useAppContext } from "@/app/context/appContext";
+import { useRouter } from "next/navigation";
 const URLLink = `http://192.168.50.14:3000`;
+
 interface Video {
   _id: string;
   user: string;
@@ -17,21 +19,24 @@ interface Video {
   date: string;
 }
 
-interface LikeDislike {
-  likeCount: number;
-}
+// interface LikeDislike {
+//   likeCount: number;
+//   user:boolean;
+// }
 
 
 export default function WatchComponent({ params }: { params: { watch: string } }) {
   const [video, setVideo] = useState<Video[]>([]);
-  const [count, setcount] = useState<LikeDislike[]>([])
+  const [count, setcount] = useState<number>(0);
+  const [isLike, setisLike] = useState<boolean>();
   const [isLoading, setIsLoading] = useState(false);
   const [ismore, setIsmore] = useState(true); // Explicitly set the initial state to false
 
   const videoDescription = video[0]?.description;
   const truncatedDescription = videoDescription?.substring(0, 20);
-
-
+  // const { isLogin } = useAppContext();
+  const [isLogin, setisLogin] = useState<boolean>();
+  const router = useRouter();
   const handleClick = () => {
     setIsmore(!ismore); // Toggle the state when the button is clicked
   };
@@ -99,19 +104,26 @@ export default function WatchComponent({ params }: { params: { watch: string } }
     try {
       const headers = new Headers();
       headers.append('videoid', params.watch);
+      // headers.append('auth-token',`${localStorage.getItem('auth-token')}`);
+      // if (isLogin) {
+      //   headers.append('auth-token', `${localStorage.getItem('auth-token')}`);
+      // }
+
+      isLogin ? headers.append('auth-token', `${localStorage.getItem('auth-token')}`) : '';
       const likeResponse = await fetch(`${URLLink}/api/video/getlike`, {
         method: 'GET',
         headers: headers
       })
 
       const like = await likeResponse.json();
-      // console.log(data.user);
       if (like) {
-        const newLikeDislike: LikeDislike = {
-          likeCount: like.likeCount
-        }
-
-        setcount([newLikeDislike]);
+        // const newLikeDislike: LikeDislike = {
+        //   likeCount: like.likeCount,
+        //   user:like.user
+        // }
+        setcount(like.likeCount);
+        setisLike(like.user);
+        // setcount([newLikeDislike]);
       }
 
     } catch (error) {
@@ -123,7 +135,41 @@ export default function WatchComponent({ params }: { params: { watch: string } }
   useEffect(() => {
     fetchData();
     fetchLikeDislike();
-  }, []);
+    const authToken = localStorage.getItem('auth-token');
+    setisLogin(authToken ? true : false);
+  }, [isLogin]);
+
+  const videoLike = async () => {
+    try {
+      const headers = new Headers();
+      headers.append('videoid', params.watch);
+      // headers.append('auth-token',`${localStorage.getItem('auth-token')}`);
+      // if (isLogin) {
+      //   headers.append('auth-token', `${localStorage.getItem('auth-token')}`);
+      // }
+
+      isLogin ? headers.append('auth-token', `${localStorage.getItem('auth-token')}`) : router.push('/signin');
+
+      const likeResponse = await fetch(`${URLLink}/api/video/like`, {
+        method: 'POST',
+        headers: headers
+      })
+
+      const like = await likeResponse.json();
+      if (like) {
+        // const newLikeDislike: LikeDislike = {
+        //   likeCount: like.likeCount,
+        //   user:like.user
+        // }
+        setcount(isLike ? count - 1 : count + 1);
+        setisLike(isLike ? false : true);
+        // setcount([newLikeDislike]);
+      }
+
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  }
 
 
   return (
@@ -154,8 +200,8 @@ export default function WatchComponent({ params }: { params: { watch: string } }
               <div className={`${Style.flex} ${Style.at_c} ${Style.mr_10} ${Style.btn}`}>
                 {/* Like Button */}
                 <div className={`${Style.flex} ${Style.at_c}  ${Style.likeBtn}`}>
-                  <Image className={`${Style.mr_10} ${Style.icon}`} src="/assets/images/likeIcon.png" width={20} height={20} alt="" priority />
-                  {count[0]?.likeCount}
+                  <Image className={`${Style.mr_10} ${Style.icon}`} src={`${isLike ? '/assets/images/likeFillIcon.png' : '/assets/images/likeIcon.png'}`} onClick={videoLike} width={20} height={20} alt="" priority />
+                  {count}
                 </div>
                 {/* Dislike Button */}
                 <div className={`${Style.flex} ${Style.at_c} `}>
