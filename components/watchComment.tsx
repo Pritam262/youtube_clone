@@ -9,13 +9,14 @@ import { useEffect, useState } from 'react'
 
 const URLLink = `http://192.168.50.14:3000`;
 interface comment {
-  _id: string;
+  id: string;
   user: string;
   fname: string;
   lname: string;
   comment: string; // Fixed typo here
   date: string;
   update: string;
+  userIsOwner: boolean;
 }
 
 
@@ -27,47 +28,48 @@ export default function Watchcomment({ params }: { params: { watch: string } }) 
   const [isLoading, setIsLoading] = useState(true);
   const [fetchingData, setFetchingData] = useState(false); // Add a fetching flag
   const [totalItems, setTotalItems] = useState<number>(0);
+  const [isLogin, setisLogin] = useState<boolean>(true);
   const calculateRelativeTime = (uploadDate: Date) => {
 
     // const currentDate = new Date();
     // const timeDifference = Math.floor((currentDate.getTime() - uploadDate.getTime()) / 1000);
 
 
-     // Determine the user's time zone
-const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    // Determine the user's time zone
+    const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
-// console.log(userTimeZone);
+    // console.log(userTimeZone);
 
-// Convert the uploadDate to the user's time zone
-const userUploadDate = new Date(uploadDate.toLocaleString('en-US', { timeZone: userTimeZone }));
+    // Convert the uploadDate to the user's time zone
+    const userUploadDate = new Date(uploadDate.toLocaleString('en-US', { timeZone: userTimeZone }));
 
-const currentDate = new Date();
-const timeDifference = Math.floor((currentDate.getTime() - userUploadDate.getTime()) / 1000);
+    const currentDate = new Date();
+    const timeDifference = Math.floor((currentDate.getTime() - userUploadDate.getTime()) / 1000);
 
     if (timeDifference < 60) {
-        return `${timeDifference} second${timeDifference !== 1 ? 's' : ''} ago`;
+      return `${timeDifference} second${timeDifference !== 1 ? 's' : ''} ago`;
     } else if (timeDifference < 3600) {
-        const minutes = Math.floor(timeDifference / 60);
-        return `${minutes} minute${minutes !== 1 ? 's' : ''} ago`;
+      const minutes = Math.floor(timeDifference / 60);
+      return `${minutes} minute${minutes !== 1 ? 's' : ''} ago`;
     } else if (timeDifference < 86400) {
-        const hours = Math.floor(timeDifference / 3600);
-        return `${hours} hour${hours !== 1 ? 's' : ''} ago`;
+      const hours = Math.floor(timeDifference / 3600);
+      return `${hours} hour${hours !== 1 ? 's' : ''} ago`;
     } else if (timeDifference < 2592000) { // 30 days
-        const days = Math.floor(timeDifference / 86400);
-        return `${days} day${days !== 1 ? 's' : ''} ago`;
+      const days = Math.floor(timeDifference / 86400);
+      return `${days} day${days !== 1 ? 's' : ''} ago`;
     } else if (timeDifference < 31536000) { // 365 days
-        const months = Math.floor(timeDifference / 2592000); // Average month length
-        return `${months} month${months !== 1 ? 's' : ''} ago`;
+      const months = Math.floor(timeDifference / 2592000); // Average month length
+      return `${months} month${months !== 1 ? 's' : ''} ago`;
     } else {
-        const years = Math.floor(timeDifference / 31536000); // Average year length
-        return `${years} year${years !== 1 ? 's' : ''} ago`;
+      const years = Math.floor(timeDifference / 31536000); // Average year length
+      return `${years} year${years !== 1 ? 's' : ''} ago`;
     }
-};
+  };
 
 
   const fetchData = async (newPage: number) => {
 
- 
+
     if (fetchingData) {
       return; // Return early if data is already being fetched
     }
@@ -77,17 +79,19 @@ const timeDifference = Math.floor((currentDate.getTime() - userUploadDate.getTim
     try {
       const headers = new Headers();
       headers.append('videoid', params.watch);
+      isLogin ? headers.append('auth-token', `${localStorage.getItem('auth-token')}`) : '';
       const response = await fetch(`${URLLink}/api/comment/getvideocomment?page=${page}`, {
         method: 'GET',
         headers: headers,
       });
       const data = await response.json();
 
-      if (data && data.comment) {
-        const comments = data.comment.map((comment: { date: string | number | Date; fname: string; lname: string; user: { fname: string, lname: string } }) => {
+      if (data && data.comments) {
+        const comments = data.comments.map((comment: { date: string | number | Date; fname: string; lname: string; user: { fname: string, lname: string }; id: string }) => {
           const uploadDate = new Date(comment.date);
           comment.fname = comment.user.fname
           comment.lname = comment.user.lname
+          comment.id = comment.id
           comment.date = calculateRelativeTime(uploadDate);
           return comment;
         });
@@ -109,6 +113,14 @@ const timeDifference = Math.floor((currentDate.getTime() - userUploadDate.getTim
       fetchData(page);
     }
   }, []);
+
+  useEffect(() => {
+
+    const authToken = localStorage.getItem('auth-token');
+    setisLogin(authToken ? true : false);
+    console.log(isLogin);
+  }, [isLogin]);
+
 
   const handleScroll = () => {
     if (isLoading || fetchingData) {
@@ -155,22 +167,22 @@ const timeDifference = Math.floor((currentDate.getTime() - userUploadDate.getTim
           </div>
         </div>   {/* Add comment container end*/}
 
-        {commentlist.map((comment) => {
+        {commentlist.map((comment,index) => {
           return (
-
-            <div key={comment._id}>
+            <div key={comment.id}>
 
               {/* Comment show*/}
               <div className={Style.comment}>
                 <Image src='/assets/images/person.jpg' className={Style.userImage} width={50} height={50} alt="" priority />
-                <div className={Style.fget6}>
-                  <span><p className={`${Style.pinComment} ${Style.text}`}>Pined by Studyiq IAS</p></span>
+                  <div className={Style.fget6}>
+
+                  {/* <span><p className={`${Style.pinComment} ${Style.text}`}>Pined by Studyiq IAS</p></span> */}
                   <span className={`${Style.dyt245}`}><span className={Style.fdes45}><p className={Style.skew41}>@{comment.fname}{comment.lname}</p> </span><p className={`${Style.commentTime} ${Style.text}`}>{comment.date}</p></span>
                   <p className={Style.text}>{comment.comment}</p>
+                  </div>
+              <h2>{comment.userIsOwner ? 'T' : "F"}</h2>
                 </div>
               </div>
-
-            </div>
           )
         })}
         {isLoading ? <Image style={{ margin: 'auto' }} src='/assets/images/loading.gif' width={50} height={50} alt='' /> : ''}

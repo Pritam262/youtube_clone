@@ -104,11 +104,6 @@ export default function WatchComponent({ params }: { params: { watch: string } }
     try {
       const headers = new Headers();
       headers.append('videoid', params.watch);
-      // headers.append('auth-token',`${localStorage.getItem('auth-token')}`);
-      // if (isLogin) {
-      //   headers.append('auth-token', `${localStorage.getItem('auth-token')}`);
-      // }
-
       isLogin ? headers.append('auth-token', `${localStorage.getItem('auth-token')}`) : '';
       const likeResponse = await fetch(`${URLLink}/api/video/getlike`, {
         method: 'GET',
