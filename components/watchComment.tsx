@@ -118,7 +118,6 @@ export default function Watchcomment({ params }: { params: { watch: string } }) 
 
     const authToken = localStorage.getItem('auth-token');
     setisLogin(authToken ? true : false);
-    console.log(isLogin);
   }, [isLogin]);
 
 
@@ -177,7 +176,7 @@ export default function Watchcomment({ params }: { params: { watch: string } }) 
                   <div className={Style.fget6}>
 
                   {/* <span><p className={`${Style.pinComment} ${Style.text}`}>Pined by Studyiq IAS</p></span> */}
-                  <span className={`${Style.dyt245}`}><span className={Style.fdes45}><p className={Style.skew41}>@{comment.fname}{comment.lname}</p> </span><p className={`${Style.commentTime} ${Style.text}`}>{comment.date}</p></span>
+                  <span className={`${Style.dyt245}`}><span className={Style.fdes45}><p className={Style.skew41}>@{comment.fname} {comment.lname}</p> </span><p className={`${Style.commentTime} ${Style.text}`}>{comment.date}</p></span>
                   <p className={Style.text}>{comment.comment}</p>
                   </div>
               <h2>{comment.userIsOwner ? 'T' : "F"}</h2>
