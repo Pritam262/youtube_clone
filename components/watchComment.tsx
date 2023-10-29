@@ -2,6 +2,7 @@
 import Image from 'next/image'
 import Style from '@/app/style/watchpage.module.css'
 import { useEffect, useState } from 'react'
+import { useAppContext } from "@/app/context/appContext";
 // require('dotenv').config();
 
 // const serverIp = `http://${process.env.SERVER_IP}`;
@@ -28,7 +29,9 @@ export default function Watchcomment({ params }: { params: { watch: string } }) 
   const [isLoading, setIsLoading] = useState(true);
   const [fetchingData, setFetchingData] = useState(false); // Add a fetching flag
   const [totalItems, setTotalItems] = useState<number>(0);
-  const [isLogin, setisLogin] = useState<boolean>(true);
+  // const [isLogin, setisLogin] = useState<boolean>(true);
+  const { isLogin } = useAppContext();
+  // const [isLogin, setisLogin] = useState(false)
   const calculateRelativeTime = (uploadDate: Date) => {
 
     // const currentDate = new Date();
@@ -79,13 +82,14 @@ export default function Watchcomment({ params }: { params: { watch: string } }) 
     try {
       const headers = new Headers();
       headers.append('videoid', params.watch);
-      isLogin ? headers.append('auth-token', `${localStorage.getItem('auth-token')}`) : '';
+      // isLogin ? headers.append('auth-token', `${localStorage.getItem('auth-token')}`) : '';
+      headers.append('auth-token', `${localStorage.getItem('auth-token')}`);
       const response = await fetch(`${URLLink}/api/comment/getvideocomment?page=${page}`, {
         method: 'GET',
         headers: headers,
       });
       const data = await response.json();
-
+      console.log(data.comments);
       if (data && data.comments) {
         const comments = data.comments.map((comment: { date: string | number | Date; fname: string; lname: string; user: { fname: string, lname: string }; id: string }) => {
           const uploadDate = new Date(comment.date);
@@ -114,11 +118,11 @@ export default function Watchcomment({ params }: { params: { watch: string } }) 
     }
   }, []);
 
-  useEffect(() => {
+  // useEffect(() => {
 
-    const authToken = localStorage.getItem('auth-token');
-    setisLogin(authToken ? true : false);
-  }, [isLogin]);
+  //   const authToken = localStorage.getItem('auth-token');
+  //   setisLogin(authToken ? true : false);
+  // }, [isLogin]);
 
 
   const handleScroll = () => {
@@ -166,22 +170,25 @@ export default function Watchcomment({ params }: { params: { watch: string } }) 
           </div>
         </div>   {/* Add comment container end*/}
 
-        {commentlist.map((comment,index) => {
+        {commentlist.map((comment, index) => {
+          // console.log(comment )
           return (
             <div key={comment.id}>
 
               {/* Comment show*/}
               <div className={Style.comment}>
                 <Image src='/assets/images/person.jpg' className={Style.userImage} width={50} height={50} alt="" priority />
-                  <div className={Style.fget6}>
+                <div className={Style.fget6}>
 
                   {/* <span><p className={`${Style.pinComment} ${Style.text}`}>Pined by Studyiq IAS</p></span> */}
                   <span className={`${Style.dyt245}`}><span className={Style.fdes45}><p className={Style.skew41}>@{comment.fname} {comment.lname}</p> </span><p className={`${Style.commentTime} ${Style.text}`}>{comment.date}</p></span>
                   <p className={Style.text}>{comment.comment}</p>
-                  </div>
-              <h2>{comment.userIsOwner ? 'T' : "F"}</h2>
                 </div>
+                <span>{isLogin ? comment.userIsOwner ? <Image src='/assets/images/settingIcon.png' width={10} height={25} alt='' /> : "F" : ''}</span>
+                {/* <div className={Style.btnOption}>
+                </div> */}
               </div>
+            </div>
           )
         })}
         {isLoading ? <Image style={{ margin: 'auto' }} src='/assets/images/loading.gif' width={50} height={50} alt='' /> : ''}

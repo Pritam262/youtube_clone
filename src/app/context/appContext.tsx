@@ -10,6 +10,10 @@ type AppContextType = {
   isShortCommentHidden: boolean;
   setisShortCommentHidden: (hidden: boolean) => void;
   shortToggle: () => void;
+  logOut: () => void;
+  isModelHidden:boolean;
+  setisModelHidden:(hidden:boolean)=>void;
+  showModel:()=>void;
 };
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -30,6 +34,7 @@ export function AppProvider({ children }: AppProviderProps) {
   const [isLeftNavHidden, setisLeftNavHidden] = useState(true);
   const [isLogin, setIsLogin] = useState(false); // Initialize isLogin state
   const [isShortCommentHidden, setisShortCommentHidden] = useState(true);
+  const [isModelHidden, setisModelHidden] = useState(true);
 
   useEffect(() => {
     // Check if there's an "auth-token" in local storage to determine if the user is logged in
@@ -45,6 +50,17 @@ export function AppProvider({ children }: AppProviderProps) {
 
     setisShortCommentHidden((prev) => !prev);
   }
+  const logOut = () => {
+    // Logout
+    localStorage.removeItem('auth-token');
+
+    // Update the isLogin state to false;
+    setIsLogin(false);
+setisModelHidden(true);
+  }
+  const showModel = () => {
+    setisModelHidden((prev) => !prev);
+}
 
   const contextValue: AppContextType = {
     isLeftNavHidden,
@@ -54,7 +70,11 @@ export function AppProvider({ children }: AppProviderProps) {
     setIsLogin: (loginStatus) => setIsLogin(loginStatus), // Provide the setIsLogin function
     isShortCommentHidden,
     setisShortCommentHidden,
-    shortToggle
+    shortToggle,
+    logOut,
+    isModelHidden,
+    setisModelHidden,
+    showModel,
   };
 
   return <AppContext.Provider value={contextValue}>{children}</AppContext.Provider>;

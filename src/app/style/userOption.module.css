@@ -1,0 +1,57 @@
+.container{
+    width: 300px;
+    height: 350px;
+    display: flex;
+    flex-direction: column;
+    padding: 8px 0;
+    background-color: rgb(41, 41, 41);
+    border-radius: 15px;
+    position: absolute;
+    top: 8vh;
+    right: 10px;
+    color: rgb(255, 255, 255);
+    animation-name: rightToLeft;
+    animation-duration: .5s;
+}
+.dfetr23{
+    padding: 15px 5px;
+    /* background-color: rgb(78, 78, 78); */
+    margin: 1px 0;
+    cursor: pointer;
+}
+.dfetr23:hover{
+    background-color: rgb(78, 78, 78);
+}
+@keyframes rightToLeft{
+    from{
+        margin-right: -310px;
+    }
+    to{
+        margin-right: 0;
+    }
+}
+.conHidden{
+    /* display: none; */
+    width: 300px;
+    height: 350px;
+    display: flex;
+    flex-direction: column;
+    padding: 8px 0;
+    background-color: rgb(41, 41, 41);
+    border-radius: 15px;
+    position: absolute;
+    top: 8vh;
+    right: 10px;
+    color: rgb(255, 255, 255);
+    margin-right: -310px;
+    animation-name: leftToRight;
+    animation-duration: .5s;
+}
+@keyframes leftToRight{
+    from{
+        margin-right: 0;
+    }
+    to{
+        margin-right: -310px;
+    }
+}

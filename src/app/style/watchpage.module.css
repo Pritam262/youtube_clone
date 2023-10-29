@@ -143,7 +143,11 @@
     margin-left: 15px;
     color: rgb(110, 110, 110);
 }
-
+.btnOption{
+    width: 150px;
+    height: 100px;
+    margin-top: 15px;
+}
 .rightContainer {
     /* If main is flex */
     /* width: 30%; */
