@@ -29,9 +29,12 @@ export default function Watchcomment({ params }: { params: { watch: string } }) 
   const [isLoading, setIsLoading] = useState(true);
   const [fetchingData, setFetchingData] = useState(false); // Add a fetching flag
   const [totalItems, setTotalItems] = useState<number>(0);
+  const [optionId, setoptionId] = useState<string>()
   // const [isLogin, setisLogin] = useState<boolean>(true);
   const { isLogin } = useAppContext();
   // const [isLogin, setisLogin] = useState(false)
+
+  // Calculate relative time function
   const calculateRelativeTime = (uploadDate: Date) => {
 
     // const currentDate = new Date();
@@ -69,7 +72,7 @@ export default function Watchcomment({ params }: { params: { watch: string } }) 
     }
   };
 
-
+  // Fetch Comment function
   const fetchData = async (newPage: number) => {
 
 
@@ -89,7 +92,7 @@ export default function Watchcomment({ params }: { params: { watch: string } }) 
         headers: headers,
       });
       const data = await response.json();
-      console.log(data.comments);
+
       if (data && data.comments) {
         const comments = data.comments.map((comment: { date: string | number | Date; fname: string; lname: string; user: { fname: string, lname: string }; id: string }) => {
           const uploadDate = new Date(comment.date);
@@ -111,6 +114,57 @@ export default function Watchcomment({ params }: { params: { watch: string } }) 
       setFetchingData(false);
     }
   };
+
+  // Function to toggle button option
+  const toggleOption = (id: string) => {
+    setoptionId(optionId === id ? '' : id);
+  }
+  // Detete comment
+  const deleteComment = async (id: string) => {
+    try {
+      const headers = new Headers();
+      headers.append('commentid', id);
+      headers.append('auth-token', `${localStorage.getItem('auth-token')}`);
+      await fetch(`${URLLink}/api/comment/deletecomment`, {
+        method: 'DELETE',
+        headers: headers,
+      });
+  
+      // Update the totalItems count (assuming you have a state variable for it)
+      setTotalItems(prevTotalItems => prevTotalItems - 1);
+  
+      // Filter out the deleted comment from the comment list
+      setCommentlist(prevCommentList => prevCommentList.filter(comment => comment.id !== id));
+  
+      setoptionId('');
+    } catch (error) {
+      console.log('Something went wrong');
+    }
+  };
+
+  // const deleteComment = async (id: string) => {
+  //   try {
+  //     const headers = new Headers();
+  //     headers.append('commentid', id);
+  //     headers.append('auth-token', `${localStorage.getItem('auth-token')}`);
+  //     await fetch(`${URLLink}/api/comment/deletecomment`, {
+  //       method: 'DELETE',
+  //       headers: headers,
+  //     });
+
+  //     // Filter out the deleted comment from the comment list
+  //     setCommentlist((prevCommentList) => prevCommentList.filter(comment => comment.id !== id));
+
+  //     // setCommentlist((prevCommentList) => {
+  //     //   const updatedCommentList = prevCommentList.filter(comment => comment.id !== id);
+  //     //   console.log("Updated Comment List:", updatedCommentList); // Add this console.log
+  //     //   return updatedCommentList;
+  //     // });
+  //     setoptionId('');
+  //   } catch (error) {
+  //     console.log('Something went wrong');
+  //   }
+  // };
 
   useEffect(() => {
     if (commentlist.length === 0) {
@@ -136,6 +190,7 @@ export default function Watchcomment({ params }: { params: { watch: string } }) 
     const scrollPercentage = (scrollPosition / (documentHeight - windowHeight)) * 100;
 
     if (scrollPercentage >= 80 && commentlist.length < totalItems) {
+      console.log(`Scroll Percentage: ${scrollPercentage}`);
       fetchData(page + 1);
     }
   };
@@ -146,6 +201,7 @@ export default function Watchcomment({ params }: { params: { watch: string } }) 
       window.removeEventListener('scroll', handleScroll);
     };
   }, [commentlist, isLoading, fetchingData, page]);
+
   return (
     <>
 
@@ -184,9 +240,15 @@ export default function Watchcomment({ params }: { params: { watch: string } }) 
                   <span className={`${Style.dyt245}`}><span className={Style.fdes45}><p className={Style.skew41}>@{comment.fname} {comment.lname}</p> </span><p className={`${Style.commentTime} ${Style.text}`}>{comment.date}</p></span>
                   <p className={Style.text}>{comment.comment}</p>
                 </div>
-                <span>{isLogin ? comment.userIsOwner ? <Image src='/assets/images/settingIcon.png' width={10} height={25} alt='' /> : "F" : ''}</span>
-                {/* <div className={Style.btnOption}>
-                </div> */}
+                {/* Setting icon */}
+                <span>{isLogin ? comment.userIsOwner ? <Image src='/assets/images/settingIcon.png' width={10} height={25} alt='' onClick={() => toggleOption(index.toString())} /> : <Image src='/assets/images/settingIcon.png' width={10} height={25} alt='' onClick={() => toggleOption(index.toString())} /> : ''}</span>
+                {/* Button Option */}
+                {isLogin ? comment.userIsOwner ? <div className={optionId === index.toString() ? Style.btnOption : Style.hiddenOption} id={index.toString()}>
+                  <span onClick={() => deleteComment(comment.id)} className={Style.text}>Delete</span>
+                  <p className={Style.text}>Edit</p>
+                </div> : <div className={optionId === index.toString() ? Style.btnOption : Style.hiddenOption} id={index.toString()}>
+                  <p className={Style.text}>Report</p>
+                </div> : ''}
               </div>
             </div>
           )

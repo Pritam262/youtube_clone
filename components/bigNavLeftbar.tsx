@@ -34,13 +34,6 @@ export default function BigLeftNavBar() {
                 <Link href='/sport' className={`${Style.navMenu}`}><Image className={Style.icon} src='/assets/images/trophyIcon.png' width={50} height={50} alt='' priority /> <p className={`${Style.navList}`}>Sport</p> </Link>
                 <Link href='/education' className={`${Style.navMenu}`}><Image className={Style.icon} src='/assets/images/ideaIcon.png' width={50} height={50} alt='' priority /> <p className={`${Style.navList}`}>Learning</p> </Link>
                 <Link href='/fasion' className={`${Style.navMenu}`}><Image className={Style.icon} src='/assets/images/beautyIcon.png' width={50} height={50} alt='' priority /> <p className={`${Style.navList}`}>Fasion & Beauty</p> </Link>
-
-
-                <Link href='/gaming' className={`${Style.navMenu}`}><Image className={Style.icon} src='/assets/images/consoleIcon.png' width={50} height={50} alt='' priority /> <p className={`${Style.navList}`}>Gaming</p> </Link>
-                <Link href='/news' className={`${Style.navMenu}`}><Image className={Style.icon} src='/assets/images/newsIcon.png' width={50} height={50} alt='' priority /> <p className={`${Style.navList}`}>News</p> </Link>
-                <Link href='/sport' className={`${Style.navMenu}`}><Image className={Style.icon} src='/assets/images/trophyIcon.png' width={50} height={50} alt='' priority /> <p className={`${Style.navList}`}>Sport</p> </Link>
-                <Link href='/education' className={`${Style.navMenu}`}><Image className={Style.icon} src='/assets/images/ideaIcon.png' width={50} height={50} alt='' priority /> <p className={`${Style.navList}`}>Learning</p> </Link>
-                <Link href='/fasion' className={`${Style.navMenu}`}><Image className={Style.icon} src='/assets/images/beautyIcon.png' width={50} height={50} alt='' priority /> <p className={`${Style.navList}`}>Fasion & Beauty</p> </Link>
             </div>
         </div>
     )
