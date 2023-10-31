@@ -133,7 +133,6 @@ export default function Home() {
                             // <div className={Style.slgd12} key={video._id} >
                             <div className={Style.card} key={video._id}>
                                 <Link href={`/watch/${encodeURIComponent(video._id)}`}>
-
                                     <Image src={video.coverImage} className={Style.coverImage} width={312} height={180} alt='' blurDataURL='/assets/images/blur.avif' priority />
                                     <div className={`${Style.flex} ${Style.videoDetails}`}>
                                         <Image className={Style.channel} src='/assets/images/person.jpg' width={50} height={50} alt='' priority />

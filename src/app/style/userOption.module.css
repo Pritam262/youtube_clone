@@ -8,7 +8,7 @@
     border-radius: 15px;
     position: absolute;
     top: 8vh;
-    right: 10px;
+    right: 20px;
     color: rgb(255, 255, 255);
     animation-name: rightToLeft;
     animation-duration: .5s;
@@ -53,5 +53,25 @@
     }
     to{
         margin-right: -310px;
+    }
+}
+
+@media screen and (max-width:700px){
+    .container{
+        position: absolute;
+        top: 8vh;
+        right: 10px;
+        color: rgb(255, 255, 255);
+
+    }
+}
+@media screen and (max-width:300px) {
+    .container{
+        width: 250px;
+        height: 350px;
+        position: absolute;
+        top: 8vh;
+        right: 10px;
+
     }
 }

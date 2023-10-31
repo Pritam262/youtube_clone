@@ -33,7 +33,7 @@ export default function Watchcomment({ params }: { params: { watch: string } }) 
   // const [isLogin, setisLogin] = useState<boolean>(true);
   const { isLogin } = useAppContext();
   // const [isLogin, setisLogin] = useState(false)
-
+  const [show, setshow] = useState(false);
   // Calculate relative time function
   const calculateRelativeTime = (uploadDate: Date) => {
 
@@ -129,13 +129,13 @@ export default function Watchcomment({ params }: { params: { watch: string } }) 
         method: 'DELETE',
         headers: headers,
       });
-  
+
       // Update the totalItems count (assuming you have a state variable for it)
       setTotalItems(prevTotalItems => prevTotalItems - 1);
-  
+
       // Filter out the deleted comment from the comment list
       setCommentlist(prevCommentList => prevCommentList.filter(comment => comment.id !== id));
-  
+
       setoptionId('');
     } catch (error) {
       console.log('Something went wrong');
@@ -172,13 +172,8 @@ export default function Watchcomment({ params }: { params: { watch: string } }) 
     }
   }, []);
 
-  // useEffect(() => {
 
-  //   const authToken = localStorage.getItem('auth-token');
-  //   setisLogin(authToken ? true : false);
-  // }, [isLogin]);
-
-
+  // Fetch data on Scroll
   const handleScroll = () => {
     if (isLoading || fetchingData) {
       return; // Return early if data is being loaded
@@ -194,7 +189,10 @@ export default function Watchcomment({ params }: { params: { watch: string } }) 
       fetchData(page + 1);
     }
   };
-
+// Hide the input field
+const handleHiddenInput = ()=>{
+  setshow((prev)=>!prev);
+}
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
     return () => {
@@ -219,12 +217,27 @@ export default function Watchcomment({ params }: { params: { watch: string } }) 
         </span> {/* No. of comment & shorted container end*/}
 
         {/* Add comment*/}
-        <div className={`${Style.inputComment}`}>
-          <Image className={Style.userImage} src='/assets/images/person.jpg' width={50} height={50} alt="" priority />
-          <div className={Style.debs24}>
-            <input className={`${Style.commentField}`} type="text" placeholder="Add your comment" />
+        {show ? <><div className={Style.drtue12}>
+          {/* User details */}
+          <span style={{ color: 'white', display: 'flex', flexDirection: 'column' }}><Image className={Style.userImage} src='/assets/images/person.jpg' width={50} height={50} alt="" priority /><p className={Style.text}>User Name</p></span>
+          <div>
+            <textarea className={Style.inputTextArea} name="" id="" cols={100} placeholder="Add your comment"></textarea>
+            <div style={{display:'flex', alignItems:'center', justifyContent:'space-between', marginTop:'10px'}}>
+              <span>Privacy policy</span>
+              <div style={{display:'flex', alignItems:'center',  justifyContent:'space-between'}}>
+                <button style={{padding:'10px 15px', backgroundColor:'transparent', border:'1px solid grey', borderRadius:'20px', fontSize:'15px', margin:'0 5px'}} onClick={handleHiddenInput}>Cancel</button>
+                <button style={{padding:'10px 15px', backgroundColor:'transparent', border:'1px solid grey', borderRadius:'20px', fontSize:'15px', margin:'0 5px'}}>Submit</button>
+              </div>
+            </div>
           </div>
-        </div>   {/* Add comment container end*/}
+        </div>
+        </> : <div className={`${Style.inputComment}`}>
+          <Image className={Style.userImage} src='/assets/images/person.jpg' width={50} height={50} alt="" priority />
+          <div className={Style.debs24} onClick={handleHiddenInput}>
+            <p>Add your comment</p>
+          </div>
+        </div>}
+        {/* Add comment container end*/}
 
         {commentlist.map((comment, index) => {
           // console.log(comment )

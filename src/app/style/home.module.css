@@ -53,7 +53,7 @@
 
 
 .card {
-    width: 300px;
+    width: 320px;
     height: max-content;
     padding-bottom: 10px;
     margin: 5px auto;
@@ -149,6 +149,7 @@
     .card {
         width: 90%;
         height: 280px;
+        background-color: blue;
     }
 
     .hdrf12 {
@@ -213,6 +214,16 @@
 
     .card {
         width: 90%;
+    }
+
+
+}
+
+
+
+@media screen and (max-width:350px) {
+    .coverImage {
+        height: 150px;
     }
 
 

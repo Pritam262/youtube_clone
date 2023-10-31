@@ -34,16 +34,17 @@ export default function Navbar() {
             {/* Right nav menu */}
             <div className={`${Style.rightContainer} ${Style.flex}`}>
                 {/* Login Button */}
-                <Image src='/assets/images/setting.png' className={Style.settingIcon} width={50} height={50} priority alt="" />
+                
                 {isLogin ? <>
                     {/* Login Button */}
                     <div className={`${Style.flex} ${Style.loginBtn}`} onClick={showModel}>
                         {/* <Image src='/assets/images/user.png' className={Style.icon} width={30} height={30} alt="" priority />
                         <p className={Style.text}>Log out</p> */}
                         <Image src='/assets/images/person.jpg' className={Style.userIcon} width={30} height={30} alt="" priority />
-                        <div className={Style.triAngle}></div>
+                        {/* <div className={Style.triAngle}></div> */}
                     </div>
                 </> : <>
+                <Image src='/assets/images/setting.png' className={Style.settingIcon} width={50} height={50} priority alt="" />
                     {/* Login Button */}
                     <Link href='/signin' >
                         <div className={`${Style.flex} ${Style.loginBtn}`}>
