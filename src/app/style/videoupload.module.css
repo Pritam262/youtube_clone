@@ -1,0 +1,40 @@
+.page{
+    width: 100vw;
+    height: 92vh;
+    margin-top: 8vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.container{
+    
+    /* min-width: 50%; */
+    width: 450px;
+    height: 350px;
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    /* background-color: chartreuse; */
+}
+
+.container .inputFlex{
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /* background-color: blueviolet; */
+    margin-bottom: 5px;
+    padding: .5rem;
+}
+
+.container .inputFlex input[type="text"]{
+width: 100%;
+padding: .5rem .5rem;
+font-size: 18px;
+}
+
+.container button{
+   margin: auto;
+   padding: .5rem;
+   font-size: 18px;
+}

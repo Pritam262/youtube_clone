@@ -8,7 +8,7 @@ export default function Signup() {
     const router = useRouter();
     const [credencial, setcredencial] = useState({ 'email': '', 'password': '' });
     const [errorText, seterrorText] = useState('');
-    const { setIsLogin } = useAppContext();
+    const { setIsLogin, serverIp } = useAppContext();
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setcredencial({
@@ -17,7 +17,7 @@ export default function Signup() {
         });
     };
     const handleSubmit = async () => {
-        const response = await fetch('http://192.168.50.14:3000/api/auth/login', {
+        const response = await fetch(`${serverIp}/api/auth/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

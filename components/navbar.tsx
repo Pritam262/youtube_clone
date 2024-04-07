@@ -44,7 +44,7 @@ export default function Navbar() {
                         {/* <div className={Style.triAngle}></div> */}
                     </div>
                 </> : <>
-                <Image src='/assets/images/setting.png' className={Style.settingIcon} width={50} height={50} priority alt="" />
+                <Image src='/assets/images/setting.png' className={Style.settingIcon} width={50} height={50} priority alt="" onClick={showModel}/>
                     {/* Login Button */}
                     <Link href='/signin' >
                         <div className={`${Style.flex} ${Style.loginBtn}`}>

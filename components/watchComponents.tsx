@@ -4,20 +4,11 @@ import Style from "@/app/style/watchComponent.module.css";
 import { useState, useEffect } from "react";
 import { useAppContext } from "@/app/context/appContext";
 import { useRouter } from "next/navigation";
-const URLLink = `http://192.168.50.14:3000`;
+import { Video } from "../utils/videodatatypes";
+import { calculateRelativeTime } from "../lib/gettimestring";
 
-interface Video {
-  _id: string;
-  user: string;
-  fname: string;
-  lname: string;
-  title: string;
-  description: string; // Fixed typo here
-  coverImage: string;
-  videoFile: string;
-  views: number;
-  date: string;
-}
+// const URLLink = `http://192.168.50.14:3000`;
+
 
 // interface LikeDislike {
 //   likeCount: number;
@@ -26,13 +17,15 @@ interface Video {
 
 
 export default function WatchComponent({ params }: { params: { watch: string } }) {
-  const [video, setVideo] = useState<Video[]>([]);
+  const [video, setVideo] = useState<Video>();
   const [count, setcount] = useState<number>(0);
   const [isLike, setisLike] = useState<boolean>();
   const [isLoading, setIsLoading] = useState(false);
   const [ismore, setIsmore] = useState(true); // Explicitly set the initial state to false
 
-  const videoDescription = video[0]?.description;
+  const {serverIp} = useAppContext();
+
+  const videoDescription = video?.description;
   const truncatedDescription = videoDescription?.substring(0, 20);
   // const { isLogin } = useAppContext();
   const [isLogin, setisLogin] = useState<boolean>();
@@ -41,59 +34,57 @@ export default function WatchComponent({ params }: { params: { watch: string } }
     setIsmore(!ismore); // Toggle the state when the button is clicked
   };
 
-  const calculateRelativeTime = (uploadDate: Date) => {
-    const currentDate = new Date();
-    const timeDifference = Math.floor((currentDate.getTime() - uploadDate.getTime()) / 1000);
+  // const calculateRelativeTime = (uploadDate: Date) => {
+  //   const currentDate = new Date();
+  //   const timeDifference = Math.floor((currentDate.getTime() - uploadDate.getTime()) / 1000);
 
-    if (timeDifference < 60) {
-      return `${timeDifference} second${timeDifference !== 1 ? 's' : ''} ago`;
-    } else if (timeDifference < 3600) {
-      const minutes = Math.floor(timeDifference / 60);
-      return `${minutes} minute${minutes !== 1 ? 's' : ''} ago`;
-    } else if (timeDifference < 86400) {
-      const hours = Math.floor(timeDifference / 3600);
-      return `${hours} hour${hours !== 1 ? 's' : ''} ago`;
-    } else if (timeDifference < 2592000) { // 30 days
-      const days = Math.floor(timeDifference / 86400);
-      return `${days} day${days !== 1 ? 's' : ''} ago`;
-    } else if (timeDifference < 31536000) { // 365 days
-      const months = Math.floor(timeDifference / 2592000); // Average month length
-      return `${months} month${months !== 1 ? 's' : ''} ago`;
-    } else {
-      const years = Math.floor(timeDifference / 31536000); // Average year length
-      return `${years} year${years !== 1 ? 's' : ''} ago`;
-    }
-  };
+  //   if (timeDifference < 60) {
+  //     return `${timeDifference} second${timeDifference !== 1 ? 's' : ''} ago`;
+  //   } else if (timeDifference < 3600) {
+  //     const minutes = Math.floor(timeDifference / 60);
+  //     return `${minutes} minute${minutes !== 1 ? 's' : ''} ago`;
+  //   } else if (timeDifference < 86400) {
+  //     const hours = Math.floor(timeDifference / 3600);
+  //     return `${hours} hour${hours !== 1 ? 's' : ''} ago`;
+  //   } else if (timeDifference < 2592000) { // 30 days
+  //     const days = Math.floor(timeDifference / 86400);
+  //     return `${days} day${days !== 1 ? 's' : ''} ago`;
+  //   } else if (timeDifference < 31536000) { // 365 days
+  //     const months = Math.floor(timeDifference / 2592000); // Average month length
+  //     return `${months} month${months !== 1 ? 's' : ''} ago`;
+  //   } else {
+  //     const years = Math.floor(timeDifference / 31536000); // Average year length
+  //     return `${years} year${years !== 1 ? 's' : ''} ago`;
+  //   }
+  // };
 
   const fetchData = async () => {
     try {
       const headers = new Headers();
       headers.append('videoid', params.watch);
-      const videoresponse = await fetch(`${URLLink}/api/video/getvideo`, {
+      const videoresponse = await fetch(`${serverIp}/api/video/getvideo`, {
         method: 'GET',
         headers: headers,
       });
-      const data = await videoresponse.json();
-      // console.log(data.user);
+      const data:Video = await videoresponse.json();
+      console.log("Video data", data);
 
-      if (data._id) { // Fixed the check for _id property
+      if (data.id) { // Fixed the check for _id property
         // Create a new video object with the desired properties
         const uploadDate = new Date(data.date);
         const newVideo: Video = {
-
-          _id: data._id,
+          id: data.id,
           user: data.user,
           title: data.title,
-          fname: data.user.fname,
-          lname: data.user.lname,
           description: data.description, // Fixed the typo here
           coverImage: data.coverImage,
           videoFile: data.videoFile,
           views: data.views,
           date: calculateRelativeTime(uploadDate),
+          chanelName:data.chanelName
         };
 
-        setVideo([newVideo]);
+        setVideo(newVideo);
       }
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -105,7 +96,7 @@ export default function WatchComponent({ params }: { params: { watch: string } }
       const headers = new Headers();
       headers.append('videoid', params.watch);
       isLogin ? headers.append('auth-token', `${localStorage.getItem('auth-token')}`) : '';
-      const likeResponse = await fetch(`${URLLink}/api/video/getlike`, {
+      const likeResponse = await fetch(`${serverIp}/api/video/getlike`, {
         method: 'GET',
         headers: headers
       })
@@ -145,7 +136,7 @@ export default function WatchComponent({ params }: { params: { watch: string } }
 
       isLogin ? headers.append('auth-token', `${localStorage.getItem('auth-token')}`) : router.push('/signin');
 
-      const likeResponse = await fetch(`${URLLink}/api/video/like`, {
+      const likeResponse = await fetch(`${serverIp}/api/video/like`, {
         method: 'POST',
         headers: headers
       })
@@ -170,21 +161,22 @@ export default function WatchComponent({ params }: { params: { watch: string } }
   return (
     <div className={Style.hhftrf214}>
       <div className={Style.videoContainer}>
-        <video className={Style.video} src={video[0]?.videoFile} controls autoPlay ></video>
+        
+      <video className={Style.video} src={video?.videoFile} controls autoPlay ></video>
       </div>
       {/* Video details */}
       <div>
         {/* Video title, and other stuff */}
         <div className={`${Style.flex} ${Style.fd_c} ${Style.video_details}`}>
           {/* Video title */}
-          <h2>{video[0]?.title}</h2>
+          <h2>{video?.title}</h2>
           <div className={Style.awer21}>
             {/* Channel name */}
             <div className={`${Style.channelDetails} ${Style.at_c}`}>
               <Image className={`${Style.userImage} ${Style.mr_10}`} src='/assets/images/person.jpg' width={50} height={50} alt="" priority />
               <div className={`${Style.mr_10}`}>
                 {/* Channel name */}
-                <h4>{video[0]?.fname} {video[0]?.lname}</h4>
+                <h4>{video?.chanelName}</h4>
                 <p className={Style.text}>14.2M Subscriber</p>
               </div>
               <button className={Style.subButton}>Subscribe</button>
@@ -219,7 +211,7 @@ export default function WatchComponent({ params }: { params: { watch: string } }
           </div>
           {/* Video description */}
           <div className={Style.videoDescription}>
-            <p className={Style.text}>{video[0]?.date}</p>
+            <p className={Style.text}>{video?.date}</p>
             {/* <p className={Style.text}>{video[0]?.description.length >60 ? `${video[0]?.description.substring(0,20)}... more`: video[0]?.description}</p> */}
             <p className={Style.text}>
               {ismore && videoDescription?.length > 60 ? `${truncatedDescription}... ` : `${videoDescription} `}

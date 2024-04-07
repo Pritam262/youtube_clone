@@ -1,14 +1,15 @@
 'use client'
 import Image from 'next/image'
 import Style from '@/app/style/watchpage.module.css'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useAppContext } from "@/app/context/appContext";
 // require('dotenv').config();
 
 // const serverIp = `http://${process.env.SERVER_IP}`;
 // const port = 3000;
 
-const URLLink = `http://192.168.50.14:3000`;
+// const URLLink = `http://192.168.50.14:3000`;
+
 interface comment {
   id: string;
   user: string;
@@ -30,8 +31,12 @@ export default function Watchcomment({ params }: { params: { watch: string } }) 
   const [fetchingData, setFetchingData] = useState(false); // Add a fetching flag
   const [totalItems, setTotalItems] = useState<number>(0);
   const [optionId, setoptionId] = useState<string>()
+
+  const [comment,setComment] = useState<string>('');
   // const [isLogin, setisLogin] = useState<boolean>(true);
-  const { isLogin } = useAppContext();
+
+  const { isLogin, serverIp } = useAppContext();
+
   // const [isLogin, setisLogin] = useState(false)
   const [show, setshow] = useState(false);
   // Calculate relative time function
@@ -72,6 +77,27 @@ export default function Watchcomment({ params }: { params: { watch: string } }) 
     }
   };
 
+
+  const addComment = async ()=>{
+
+    try {
+      
+      const response = await fetch(`${serverIp}/api/comment/videocomment`,{
+        method:'post',
+        headers:{
+          'Content-Type':'application/json',
+          'auth-token':`${localStorage.getItem('auth-token')}`,
+          'videoid':params.watch,
+        },
+        body:JSON.stringify({comment})
+      });
+      
+      await response.json();
+    } catch (error) {
+      console.log(error)
+    }
+    }
+
   // Fetch Comment function
   const fetchData = async (newPage: number) => {
 
@@ -87,7 +113,7 @@ export default function Watchcomment({ params }: { params: { watch: string } }) 
       headers.append('videoid', params.watch);
       // isLogin ? headers.append('auth-token', `${localStorage.getItem('auth-token')}`) : '';
       headers.append('auth-token', `${localStorage.getItem('auth-token')}`);
-      const response = await fetch(`${URLLink}/api/comment/getvideocomment?page=${page}`, {
+      const response = await fetch(`${serverIp}/api/comment/getvideocomment?page=${page}`, {
         method: 'GET',
         headers: headers,
       });
@@ -125,7 +151,7 @@ export default function Watchcomment({ params }: { params: { watch: string } }) 
       const headers = new Headers();
       headers.append('commentid', id);
       headers.append('auth-token', `${localStorage.getItem('auth-token')}`);
-      await fetch(`${URLLink}/api/comment/deletecomment`, {
+      await fetch(`${serverIp}/api/comment/deletecomment`, {
         method: 'DELETE',
         headers: headers,
       });
@@ -216,17 +242,18 @@ const handleHiddenInput = ()=>{
           </span>
         </span> {/* No. of comment & shorted container end*/}
 
+
         {/* Add comment*/}
         {show ? <><div className={Style.drtue12}>
           {/* User details */}
           <span style={{ color: 'white', display: 'flex', flexDirection: 'column' }}><Image className={Style.userImage} src='/assets/images/person.jpg' width={50} height={50} alt="" priority /><p className={Style.text}>User Name</p></span>
           <div>
-            <textarea className={Style.inputTextArea} name="" id="" cols={100} placeholder="Add your comment"></textarea>
+            <textarea className={Style.inputTextArea} name="comment" id="" cols={100} placeholder="Add your comment" onChange={(e:React.ChangeEvent<HTMLTextAreaElement>)=> setComment(e.target.value)} value={comment}></textarea>
             <div style={{display:'flex', alignItems:'center', justifyContent:'space-between', marginTop:'10px'}}>
               <span>Privacy policy</span>
               <div style={{display:'flex', alignItems:'center',  justifyContent:'space-between'}}>
                 <button style={{padding:'10px 15px', backgroundColor:'transparent', border:'1px solid grey', borderRadius:'20px', fontSize:'15px', margin:'0 5px'}} onClick={handleHiddenInput}>Cancel</button>
-                <button style={{padding:'10px 15px', backgroundColor:'transparent', border:'1px solid grey', borderRadius:'20px', fontSize:'15px', margin:'0 5px'}}>Submit</button>
+                <button style={{padding:'10px 15px', backgroundColor:'transparent', border:'1px solid grey', borderRadius:'20px', fontSize:'15px', margin:'0 5px'}} onClick={addComment}>Submit</button>
               </div>
             </div>
           </div>
@@ -266,6 +293,7 @@ const handleHiddenInput = ()=>{
             </div>
           )
         })}
+
         {isLoading ? <Image style={{ margin: 'auto' }} src='/assets/images/loading.gif' width={50} height={50} alt='' /> : ''}
 
       </div> {/* Coomment container end */}

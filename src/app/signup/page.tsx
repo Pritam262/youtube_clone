@@ -8,7 +8,7 @@ import { useAppContext } from "@/app/context/appContext";
 export default function Login() {
     const [isPasshidden, setisPasshidden] = useState(true);
     const router = useRouter();
-    const { setIsLogin } = useAppContext();
+    const { setIsLogin, serverIp } = useAppContext();
     const handlePassHidden = () => {
         setisPasshidden((prev) => !prev);
         console.log(isPasshidden);
@@ -28,7 +28,7 @@ export default function Login() {
     const handleSubmit = async () => {
 
         console.log(`BODY: ${JSON.stringify(credencial)}`);
-        const response = await fetch('http://192.168.50.14:3000/api/auth/register', {
+        const response = await fetch(`${serverIp}/api/auth/register`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

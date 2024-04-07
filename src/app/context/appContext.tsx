@@ -14,6 +14,7 @@ type AppContextType = {
   isModelHidden:boolean;
   setisModelHidden:(hidden:boolean)=>void;
   showModel:()=>void;
+  serverIp:String;
 };
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -35,6 +36,8 @@ export function AppProvider({ children }: AppProviderProps) {
   const [isLogin, setIsLogin] = useState(false); // Initialize isLogin state
   const [isShortCommentHidden, setisShortCommentHidden] = useState(true);
   const [isModelHidden, setisModelHidden] = useState(true);
+
+  const serverIp = "http://192.168.50.14:3000"
 
   useEffect(() => {
     // Check if there's an "auth-token" in local storage to determine if the user is logged in
@@ -75,6 +78,7 @@ setisModelHidden(true);
     isModelHidden,
     setisModelHidden,
     showModel,
+    serverIp,
   };
 
   return <AppContext.Provider value={contextValue}>{children}</AppContext.Provider>;
