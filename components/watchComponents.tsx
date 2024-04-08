@@ -3,9 +3,11 @@ import Image from "next/image";
 import Style from "@/app/style/watchComponent.module.css";
 import { useState, useEffect } from "react";
 import { useAppContext } from "@/app/context/appContext";
-import { useRouter } from "next/navigation";
 import { Video } from "../utils/videodatatypes";
 import { calculateRelativeTime } from "../lib/gettimestring";
+import WatchComponentOption from "./watchComponentOption";
+import WatchVideo from "./watchVideo";
+import WatchVideoDescription from "./watchVideoDescription";
 
 // const URLLink = `http://192.168.50.14:3000`;
 
@@ -18,45 +20,14 @@ import { calculateRelativeTime } from "../lib/gettimestring";
 
 export default function WatchComponent({ params }: { params: { watch: string } }) {
   const [video, setVideo] = useState<Video>();
-  const [count, setcount] = useState<number>(0);
-  const [isLike, setisLike] = useState<boolean>();
-  const [isLoading, setIsLoading] = useState(false);
-  const [ismore, setIsmore] = useState(true); // Explicitly set the initial state to false
 
-  const {serverIp} = useAppContext();
+  const { serverIp } = useAppContext();
 
-  const videoDescription = video?.description;
-  const truncatedDescription = videoDescription?.substring(0, 20);
-  // const { isLogin } = useAppContext();
-  const [isLogin, setisLogin] = useState<boolean>();
-  const router = useRouter();
-  const handleClick = () => {
-    setIsmore(!ismore); // Toggle the state when the button is clicked
-  };
+  // const videoDescription = video?.description;
+  // const truncatedDescription = videoDescription?.substring(0, 20);
 
-  // const calculateRelativeTime = (uploadDate: Date) => {
-  //   const currentDate = new Date();
-  //   const timeDifference = Math.floor((currentDate.getTime() - uploadDate.getTime()) / 1000);
 
-  //   if (timeDifference < 60) {
-  //     return `${timeDifference} second${timeDifference !== 1 ? 's' : ''} ago`;
-  //   } else if (timeDifference < 3600) {
-  //     const minutes = Math.floor(timeDifference / 60);
-  //     return `${minutes} minute${minutes !== 1 ? 's' : ''} ago`;
-  //   } else if (timeDifference < 86400) {
-  //     const hours = Math.floor(timeDifference / 3600);
-  //     return `${hours} hour${hours !== 1 ? 's' : ''} ago`;
-  //   } else if (timeDifference < 2592000) { // 30 days
-  //     const days = Math.floor(timeDifference / 86400);
-  //     return `${days} day${days !== 1 ? 's' : ''} ago`;
-  //   } else if (timeDifference < 31536000) { // 365 days
-  //     const months = Math.floor(timeDifference / 2592000); // Average month length
-  //     return `${months} month${months !== 1 ? 's' : ''} ago`;
-  //   } else {
-  //     const years = Math.floor(timeDifference / 31536000); // Average year length
-  //     return `${years} year${years !== 1 ? 's' : ''} ago`;
-  //   }
-  // };
+
 
   const fetchData = async () => {
     try {
@@ -66,8 +37,7 @@ export default function WatchComponent({ params }: { params: { watch: string } }
         method: 'GET',
         headers: headers,
       });
-      const data:Video = await videoresponse.json();
-      console.log("Video data", data);
+      const data: Video = await videoresponse.json();
 
       if (data.id) { // Fixed the check for _id property
         // Create a new video object with the desired properties
@@ -81,7 +51,7 @@ export default function WatchComponent({ params }: { params: { watch: string } }
           videoFile: data.videoFile,
           views: data.views,
           date: calculateRelativeTime(uploadDate),
-          chanelName:data.chanelName
+          chanelName: data.chanelName
         };
 
         setVideo(newVideo);
@@ -90,79 +60,18 @@ export default function WatchComponent({ params }: { params: { watch: string } }
       console.error('Error fetching data:', error);
     }
   };
-
-  const fetchLikeDislike = async () => {
-    try {
-      const headers = new Headers();
-      headers.append('videoid', params.watch);
-      isLogin ? headers.append('auth-token', `${localStorage.getItem('auth-token')}`) : '';
-      const likeResponse = await fetch(`${serverIp}/api/video/getlike`, {
-        method: 'GET',
-        headers: headers
-      })
-
-      const like = await likeResponse.json();
-      if (like) {
-        // const newLikeDislike: LikeDislike = {
-        //   likeCount: like.likeCount,
-        //   user:like.user
-        // }
-        setcount(like.likeCount);
-        setisLike(like.user);
-        // setcount([newLikeDislike]);
-      }
-
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
-  }
-
-
+  
   useEffect(() => {
     fetchData();
-    fetchLikeDislike();
-    const authToken = localStorage.getItem('auth-token');
-    setisLogin(authToken ? true : false);
-  }, [isLogin]);
-
-  const videoLike = async () => {
-    try {
-      const headers = new Headers();
-      headers.append('videoid', params.watch);
-      // headers.append('auth-token',`${localStorage.getItem('auth-token')}`);
-      // if (isLogin) {
-      //   headers.append('auth-token', `${localStorage.getItem('auth-token')}`);
-      // }
-
-      isLogin ? headers.append('auth-token', `${localStorage.getItem('auth-token')}`) : router.push('/signin');
-
-      const likeResponse = await fetch(`${serverIp}/api/video/like`, {
-        method: 'POST',
-        headers: headers
-      })
-
-      const like = await likeResponse.json();
-      if (like) {
-        // const newLikeDislike: LikeDislike = {
-        //   likeCount: like.likeCount,
-        //   user:like.user
-        // }
-        setcount(isLike ? count - 1 : count + 1);
-        setisLike(isLike ? false : true);
-        // setcount([newLikeDislike]);
-      }
-
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
-  }
+  }, []);
 
 
   return (
     <div className={Style.hhftrf214}>
       <div className={Style.videoContainer}>
-        
-      <video className={Style.video} src={video?.videoFile} controls autoPlay ></video>
+
+        <WatchVideo url={String(video?.videoFile)} />
+        {/* <video className={Style.video} src={video?.videoFile} controls autoPlay ></video> */}
       </div>
       {/* Video details */}
       <div>
@@ -182,42 +91,18 @@ export default function WatchComponent({ params }: { params: { watch: string } }
               <button className={Style.subButton}>Subscribe</button>
             </div>
             {/* Channel details div end */}
-            <div className={`${Style.flex} ${Style.at_c} ${Style.optionBtn}`}> {/* Button start */}
-              {/* Like and dislike button */}
-              <div className={`${Style.flex} ${Style.at_c} ${Style.mr_10} ${Style.btn}`}>
-                {/* Like Button */}
-                <div className={`${Style.flex} ${Style.at_c}  ${Style.likeBtn}`}>
-                  <Image className={`${Style.mr_10} ${Style.icon}`} src={`${isLike ? '/assets/images/likeFillIcon.png' : '/assets/images/likeIcon.png'}`} onClick={videoLike} width={20} height={20} alt="" priority />
-                  {count}
-                </div>
-                {/* Dislike Button */}
-                <div className={`${Style.flex} ${Style.at_c} `}>
-                  <Image className={`${Style.mr_10} ${Style.icon}`} src="/assets/images/dislikeIcon.png" width={20} height={20} alt="" priority />
-                </div>
-              </div> {/* Like and Dislike button end */}
-              <div className={`${Style.flex} ${Style.at_c} ${Style.mr_10} ${Style.btn}`}> {/* Share button */}
-                <Image className={`${Style.mr_10} ${Style.icon}`} src="/assets/images/sendIcon.png" width={20} height={20} alt="" priority />
-                Share
-              </div>
-              <div className={`${Style.flex} ${Style.at_c} ${Style.mr_10} ${Style.btn}`}> {/* Download button */}
-                <Image className={`${Style.mr_10} ${Style.icon}`} src="/assets/images/downloadIcon.png" width={20} height={20} alt="" priority />
-                Download
-              </div> {/* Download button end */}
-              <div className={`${Style.flex} ${Style.at_c} ${Style.mr_10} ${Style.btn}`}> {/* Save button */}
-                <Image className={`${Style.mr_10} ${Style.icon}`} src="/assets/images/saveIcon.png" width={20} height={20} alt="" priority />
-                Save
-              </div>
-            </div>
+
+            {/* Option */}
+
+            <WatchComponentOption id={params.watch} />
+
+
+
           </div>
           {/* Video description */}
-          <div className={Style.videoDescription}>
-            <p className={Style.text}>{video?.date}</p>
-            {/* <p className={Style.text}>{video[0]?.description.length >60 ? `${video[0]?.description.substring(0,20)}... more`: video[0]?.description}</p> */}
-            <p className={Style.text}>
-              {ismore && videoDescription?.length > 60 ? `${truncatedDescription}... ` : `${videoDescription} `}
-              {videoDescription?.length > 60 && <button className={Style.showClick} onClick={handleClick}>{ismore ? 'Show More' : 'Show Less'}</button>}
-            </p>
-          </div>
+
+          <WatchVideoDescription date={video?.date} description={String(video?.description)} />
+
         </div>
       </div>
     </div>
