@@ -3,7 +3,7 @@ import Image from "next/image";
 import Style from "@/app/style/watchComponent.module.css";
 import { useState, useEffect } from "react";
 import { useAppContext } from "@/app/context/appContext";
-import { Video } from "../utils/videodatatypes";
+import { Video } from "../utils/types";
 import { calculateRelativeTime } from "../lib/gettimestring";
 import WatchComponentOption from "./watchComponentOption";
 import WatchVideo from "./watchVideo";

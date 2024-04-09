@@ -3,7 +3,7 @@ import Styles from "@/app/style/watchComponent.module.css";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useAppContext } from "@/app/context/appContext";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 
 interface Params {
     id: string,
@@ -17,6 +17,8 @@ export default function WatchComponentOption(params: Params) {
     const [isLike, setisLike] = useState<boolean>();
     const [isLogin, setisLogin] = useState<boolean>();
     const [count, setcount] = useState<number>(0);
+
+    const pathName = usePathname();
 
     const fetchLikeDislike = async () => {
         try {
@@ -56,7 +58,7 @@ export default function WatchComponentOption(params: Params) {
             //   headers.append('auth-token', `${localStorage.getItem('auth-token')}`);
             // }
 
-            isLogin ? headers.append('auth-token', `${localStorage.getItem('auth-token')}`) : router.push('/signin');
+            isLogin ? headers.append('auth-token', `${localStorage.getItem('auth-token')}`) : router.push(`/signin?next=${pathName}`);
 
             const likeResponse = await fetch(`${serverIp}/api/video/like`, {
                 method: 'POST',
