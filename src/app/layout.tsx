@@ -1,10 +1,9 @@
 import './globals.css'
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+// import { Inter } from 'next/font/google'
 import Navbar from '../../components/navbar'
-import LeftNavbar from '../../components/leftNavbar'
-import Style from '@/app/style/layout.module.css'
-const inter = Inter({ subsets: ['latin'] })
+
+// const inter = Inter({ subsets: ['latin'] })
 
 // import Providers from "@/redus/provider"
 import AppState from './context/appState'
@@ -20,7 +19,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body >
         <AppState>
         <Navbar /> {children} 
         </AppState>
