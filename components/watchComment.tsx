@@ -3,6 +3,8 @@ import Image from 'next/image'
 import Style from '@/app/style/watchpage.module.css'
 import React, { useEffect, useState } from 'react'
 import { useAppContext } from "@/app/context/appContext";
+import { calculateRelativeTime } from '../lib/gettimestring';
+import { Comment } from '../utils/types';
 // require('dotenv').config();
 
 // const serverIp = `http://${process.env.SERVER_IP}`;
@@ -10,23 +12,23 @@ import { useAppContext } from "@/app/context/appContext";
 
 // const URLLink = `http://192.168.50.14:3000`;
 
-interface comment {
-  id: string;
-  user: string;
-  fname: string;
-  lname: string;
-  comment: string; // Fixed typo here
-  date: string;
-  update: string;
-  userIsOwner: boolean;
-}
+// interface comment {
+//   id: string;
+//   user: string;
+//   fname: string;
+//   lname: string;
+//   comment: string; // Fixed typo here
+//   date: string;
+//   update: string;
+//   userIsOwner: boolean;
+// }
 
 
 
 export default function Watchcomment({ params }: { params: { watch: string } }) {
 
   const [page, setPage] = useState<number>(1);
-  const [commentlist, setCommentlist] = useState<comment[]>([]);
+  const [commentlist, setCommentlist] = useState<Comment[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [fetchingData, setFetchingData] = useState(false); // Add a fetching flag
   const [totalItems, setTotalItems] = useState<number>(0);
@@ -40,42 +42,6 @@ export default function Watchcomment({ params }: { params: { watch: string } }) 
   // const [isLogin, setisLogin] = useState(false)
   const [show, setshow] = useState(false);
   // Calculate relative time function
-  const calculateRelativeTime = (uploadDate: Date) => {
-
-    // const currentDate = new Date();
-    // const timeDifference = Math.floor((currentDate.getTime() - uploadDate.getTime()) / 1000);
-
-
-    // Determine the user's time zone
-    const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-
-    // console.log(userTimeZone);
-
-    // Convert the uploadDate to the user's time zone
-    const userUploadDate = new Date(uploadDate.toLocaleString('en-US', { timeZone: userTimeZone }));
-
-    const currentDate = new Date();
-    const timeDifference = Math.floor((currentDate.getTime() - userUploadDate.getTime()) / 1000);
-
-    if (timeDifference < 60) {
-      return `${timeDifference} second${timeDifference !== 1 ? 's' : ''} ago`;
-    } else if (timeDifference < 3600) {
-      const minutes = Math.floor(timeDifference / 60);
-      return `${minutes} minute${minutes !== 1 ? 's' : ''} ago`;
-    } else if (timeDifference < 86400) {
-      const hours = Math.floor(timeDifference / 3600);
-      return `${hours} hour${hours !== 1 ? 's' : ''} ago`;
-    } else if (timeDifference < 2592000) { // 30 days
-      const days = Math.floor(timeDifference / 86400);
-      return `${days} day${days !== 1 ? 's' : ''} ago`;
-    } else if (timeDifference < 31536000) { // 365 days
-      const months = Math.floor(timeDifference / 2592000); // Average month length
-      return `${months} month${months !== 1 ? 's' : ''} ago`;
-    } else {
-      const years = Math.floor(timeDifference / 31536000); // Average year length
-      return `${years} year${years !== 1 ? 's' : ''} ago`;
-    }
-  };
 
 
   const addComment = async ()=>{
@@ -109,13 +75,18 @@ export default function Watchcomment({ params }: { params: { watch: string } }) 
     setFetchingData(true);
 
     try {
-      const headers = new Headers();
-      headers.append('videoid', params.watch);
+      // const headers = new Headers();
+      // headers.append('videoid', params.watch);
       // isLogin ? headers.append('auth-token', `${localStorage.getItem('auth-token')}`) : '';
-      headers.append('auth-token', `${localStorage.getItem('auth-token')}`);
+      // headers.append('auth-token', `${localStorage.getItem('auth-token')}`);
+
       const response = await fetch(`${serverIp}/api/comment/getvideocomment?page=${page}`, {
         method: 'GET',
-        headers: headers,
+        headers: {
+          'auth-token':isLogin?  String(localStorage.getItem('auth-token')) : " ",
+          'videoid':params.watch,
+        },
+        credentials:'include'
       });
       const data = await response.json();
 
@@ -148,12 +119,16 @@ export default function Watchcomment({ params }: { params: { watch: string } }) 
   // Detete comment
   const deleteComment = async (id: string) => {
     try {
-      const headers = new Headers();
-      headers.append('commentid', id);
-      headers.append('auth-token', `${localStorage.getItem('auth-token')}`);
+      // const headers = new Headers();
+      // headers.append('commentid', id);
+      // headers.append('auth-token', `${localStorage.getItem('auth-token')}`);
       await fetch(`${serverIp}/api/comment/deletecomment`, {
         method: 'DELETE',
-        headers: headers,
+        headers:{
+          'auth-token':String(localStorage.getItem('auth-token'))
+        },
+
+        credentials:'include'
       });
 
       // Update the totalItems count (assuming you have a state variable for it)
@@ -168,29 +143,6 @@ export default function Watchcomment({ params }: { params: { watch: string } }) 
     }
   };
 
-  // const deleteComment = async (id: string) => {
-  //   try {
-  //     const headers = new Headers();
-  //     headers.append('commentid', id);
-  //     headers.append('auth-token', `${localStorage.getItem('auth-token')}`);
-  //     await fetch(`${URLLink}/api/comment/deletecomment`, {
-  //       method: 'DELETE',
-  //       headers: headers,
-  //     });
-
-  //     // Filter out the deleted comment from the comment list
-  //     setCommentlist((prevCommentList) => prevCommentList.filter(comment => comment.id !== id));
-
-  //     // setCommentlist((prevCommentList) => {
-  //     //   const updatedCommentList = prevCommentList.filter(comment => comment.id !== id);
-  //     //   console.log("Updated Comment List:", updatedCommentList); // Add this console.log
-  //     //   return updatedCommentList;
-  //     // });
-  //     setoptionId('');
-  //   } catch (error) {
-  //     console.log('Something went wrong');
-  //   }
-  // };
 
   useEffect(() => {
     if (commentlist.length === 0) {
@@ -294,7 +246,7 @@ const handleHiddenInput = ()=>{
           )
         })}
 
-        {isLoading ? <Image style={{ margin: 'auto' }} src='/assets/images/loading.gif' width={50} height={50} alt='' /> : ''}
+        {isLoading ? <img style={{ margin: 'auto' }} src='/assets/images/loading.gif' width={50} height={50} alt='' /> : ''}
 
       </div> {/* Coomment container end */}
     </>
