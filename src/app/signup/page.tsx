@@ -1,7 +1,6 @@
 
 'use client'
 import Style from '@/app/style/signup.module.css'
-import Image from 'next/image'
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useAppContext } from "@/app/context/appContext";
@@ -26,10 +25,9 @@ export default function Login() {
     const isConfirmPasswordValid = !credencial.password || credencial.password === credencial.conpassword;
 
     const handleSubmit = async () => {
-
-        console.log(`BODY: ${JSON.stringify(credencial)}`);
         const response = await fetch(`${serverIp}/api/auth/register`, {
             method: 'POST',
+            credentials:'include',
             headers: {
                 'Content-Type': 'application/json',
             },
