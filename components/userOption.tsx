@@ -10,7 +10,7 @@ export default function UserOptionCard(params: any) {
         //     <span>{isLogin ? <p onClick={logOut}>Log out</p> : ''}</span>
         // </div>
         <div className={`${isModelHidden?Style.conHidden:Style.container}`}>
-            <p className={Style.dfetr23}><Link href='/dashboard'>Dashboard</Link></p>
+           {isLogin  &&<Link href='/dashboard'> <p className={Style.dfetr23}>Dashboard </p> </Link>}
             <p className={Style.dfetr23}>Theme</p>
             <p className={Style.dfetr23}>Language</p>
             <span>{isLogin ? <p className={Style.dfetr23} onClick={logOut}>Log out</p> : ''}</span>

@@ -7,7 +7,7 @@ import Image from "next/image";
 import { calculateRelativeTime } from "../../../../lib/gettimestring";
 
 import { useRouter } from "next/navigation";
-import{ allVideoInterface } from "../../../../utils/videodatatypes";
+import{ allVideoInterface } from "../../../../utils/types";
 
 
 export default function Post() {

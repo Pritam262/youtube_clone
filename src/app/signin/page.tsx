@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation';
 import { useAppContext } from "@/app/context/appContext";
-export default function Signup() {
+export default function Signup({searchParams}:{searchParams:{[key:string]: string | string[] | undefined}}) {
     const router = useRouter();
     const [credencial, setcredencial] = useState({ 'email': '', 'password': '' });
     const [errorText, seterrorText] = useState('');
@@ -19,6 +19,7 @@ export default function Signup() {
     const handleSubmit = async () => {
         const response = await fetch(`${serverIp}/api/auth/login`, {
             method: 'POST',
+            credentials:'include',
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -29,7 +30,7 @@ export default function Signup() {
             const data = await response.json();
             const authToken = data.authtoken;
             localStorage.setItem('auth-token', authToken);
-            router.push('/');
+            searchParams.next ? router.push(`${searchParams.next}`) : router.push("/");
             setIsLogin(true);
         }
         else {

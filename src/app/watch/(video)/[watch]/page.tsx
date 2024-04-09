@@ -9,10 +9,10 @@ import BigLeftNavBar from "../../../../../components/bigNavLeftbar";
 import { useAppContext } from "@/app/context/appContext";
 import { useEffect } from "react";
 export default function page({ params }: { params: { watch: string } }) {
-  const { isLeftNavHidden, setisLeftNavHidden} = useAppContext();
   useEffect(() => {
   setisLeftNavHidden(true);
   }, [])
+  const { isLeftNavHidden, setisLeftNavHidden} = useAppContext();
   
   return (
     <>
