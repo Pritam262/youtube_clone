@@ -2,47 +2,47 @@
 import Styles from '@/app/style/postsvideo.module.css';
 import React, { useEffect, useState } from 'react';
 import { useAppContext } from '@/app/context/appContext';
-import {Video} from '../../../../../utils/videodatatypes';
+import { Video } from '../../../../../utils/types';
 export default function PostPage({
     params,
     searchParams,
-  }: {
+}: {
     params: { slug: string };
     searchParams?: { [key: string]: string | string[] | undefined };
-  }){
+}) {
 
 
-    const [coverImage, setCoverImage] = useState<File | undefined>() ;
+    const [coverImage, setCoverImage] = useState<File | undefined>();
     const [videoFile, setVideoFile] = useState<File | undefined>();
-    const [title, setTitle] = useState<string >( " ");
-    const [description, setDescription] = useState<string >(" ");
+    const [title, setTitle] = useState<string>(" ");
+    const [description, setDescription] = useState<string>(" ");
 
-    const {serverIp} = useAppContext();
-
-
+    const { serverIp } = useAppContext();
 
 
-    const editUploadVideo = async (id:String)=>{
+
+
+    const editUploadVideo = async (id: String) => {
 
         // if (!coverImage || !videoFile) {
         //     console.error('No file selected');
         //     return;
         // }
         const formData = new FormData();
-        formData.append('coverImage', coverImage);
-        formData.append('videoFile', videoFile);
+        if (coverImage)  formData.append('coverImage', coverImage);
+        if(videoFile) formData.append('videoFile', videoFile);
         formData.append('title', title);
         formData.append('description', description);
 
         try {
-            
+
             const response = await fetch(`${serverIp}/api/video/update`, {
-                method:'put',
-                headers:{
-                    'auth-token':String(localStorage.getItem('auth-token')),
-                    'videoid':String(searchParams?.id)
+                method: 'put',
+                headers: {
+                    'auth-token': String(localStorage.getItem('auth-token')),
+                    'videoid': String(searchParams?.id)
                 },
-                body:formData,
+                body: formData,
             });
 
 
@@ -52,44 +52,50 @@ export default function PostPage({
         } catch (error) {
             console.log(error)
         }
+    }
+
+    const fetchVideo = async (id: string) => {
+        try {
+
+            const response = await fetch(`${serverIp}/api/video/getvideo`, {
+                method: 'get',
+                headers: {
+                    'content-type': 'application/json',
+                    'auth-token': `${localStorage.getItem('auth-token')}`,
+                    'videoid': String(searchParams?.id)
+                }
+            });
+
+            const data: Video = await response.json();
+            setTitle(data.title);
+            setDescription(data.description);
+        } catch (error) {
+            console.log(error)
         }
+    }
 
-        const fetchVideo = async (id:string)=>{
-            try {
-
-                const response = await fetch(`${serverIp}/api/video/getvideo`, {
-                    method: 'get',
-                    headers: {
-                        'content-type': 'application/json',
-                        'auth-token': `${localStorage.getItem('auth-token')}`,
-                        'videoid':String(searchParams?.id)
-                    }
-                });
-    
-                const data:Video = await response.json();
-                setTitle(data.title);
-                setDescription(data.description);
-            } catch (error) {
-                console.log(error)
-            }
-        }
-
-        useEffect(()=>{
-            fetchVideo(String(searchParams?.id));
-        },[])
-    return(
+    useEffect(() => {
+        fetchVideo(String(searchParams?.id));
+    }, [])
+    return (
         <div className={Styles.page}>
             {searchParams?.id}
 
             <div className={Styles.container}>
 
 
-            <input type="file" name="coverImage" id="" onChange={(e:React.ChangeEvent<HTMLInputElement>)=> setCoverImage(e.target.files?.[0])}/>
-            <input type="file" name="videoFile"  onChange={(e:React.ChangeEvent<HTMLInputElement>)=> setVideoFile(e.target.files?.[0])}/>
-            <input type="text" name="title" id="" onChange={(e:React.ChangeEvent<HTMLInputElement>)=> setTitle(e.target.value)} value={title}/>
-            <input type="text" name="" id="" onChange={(e:React.ChangeEvent<HTMLInputElement>)=> setDescription(e.target.value)} value={description}/>
+                <div style={{display:'flex', width:'100%', alignItems:'center', justifyContent:'space-between', marginBottom:'10px'}}>
+                    <label htmlFor="coverImage">Thumbnail</label>
+                    <input type="file" name="coverImage" id="" onChange={(e: React.ChangeEvent<HTMLInputElement>) => setCoverImage(e.target.files?.[0])} />
+                </div>
+                <div style={{display:'flex', width:'100%', alignItems:'center', justifyContent:'space-between', marginBottom:'10px'}}>
+                    <label htmlFor="videoFile">Video</label>
+                    <input type="file" name="videoFile" onChange={(e: React.ChangeEvent<HTMLInputElement>) => setVideoFile(e.target.files?.[0])} />
+                </div>
+                <input type="text" name="title" id="" onChange={(e: React.ChangeEvent<HTMLInputElement>) => setTitle(e.target.value)} value={title} />
+                <input type="text" name="" id="" onChange={(e: React.ChangeEvent<HTMLInputElement>) => setDescription(e.target.value)} value={description} />
 
-            <button onClick={()=>editUploadVideo(String(searchParams?.id))}>Upload</button>
+                <button onClick={() => editUploadVideo(String(searchParams?.id))}>Upload</button>
             </div>
         </div>
     )
